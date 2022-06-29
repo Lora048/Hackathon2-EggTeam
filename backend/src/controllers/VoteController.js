@@ -12,6 +12,10 @@ const createOne = async (req, res) => {
   }
 
   try {
+    const voteList = await vote.getOnebyUserAndProject();
+    if (voteList.length !== 0) {
+      return res.status(404).send("Un vote existe déjà");
+    }
     const voteCreated = await vote.createOne({
       ...req.body,
       userId,
@@ -37,14 +41,16 @@ const getAll = async (req, res) => {
   }
 };
 
-const getOne = async (req, res) => {
-  const { id } = req.params;
+const getOnebyUserAndProject = async (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  const projectId = parseInt(req.params.projectId, 10);
+
   try {
-    const currentVote = await vote.getOne(id);
-    if (!currentVote) {
+    const voteCheck = await vote.getOnebyUserAndProject(userId, projectId);
+    if (!vote) {
       return res.status(404).send("Aucun vote trouvé");
     }
-    return res.status(200).json({ currentVote });
+    return res.status(200).json({ voteCheck });
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);
@@ -91,4 +97,10 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { createOne, getAll, getOne, editOne, deleteOne };
+module.exports = {
+  createOne,
+  getAll,
+  getOnebyUserAndProject,
+  editOne,
+  deleteOne,
+};
