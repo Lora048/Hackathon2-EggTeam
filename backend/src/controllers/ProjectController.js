@@ -43,7 +43,7 @@ const getOne = async (req, res) => {
   try {
     const currentProject = await project.getOne(id);
     if (!currentProject) {
-      return res.status(404).send("Aucun projec trouvé");
+      return res.status(404).send("Aucun projet trouvé");
     }
     return res.status(200).json({ currentProject });
   } catch (e) {
