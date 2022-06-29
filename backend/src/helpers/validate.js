@@ -17,3 +17,14 @@ exports.validateUser = (data, forCreation = true) => {
   }
   return false;
 };
+
+exports.validateComment = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optionnal";
+  const validationCommentErrors = Joi.object({
+    content: Joi.string().max(1000).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationCommentErrors) {
+    return validationCommentErrors;
+  }
+  return false;
+};
