@@ -1,22 +1,21 @@
 const { validateComment } = require("../helpers/validate");
-const comment = require("../models/CommentModel");
+const comments = require("../models/CommentModel");
 
 const createOne = async (req, res) => {
-  const { content } = req.body;
+  const userId = parseInt(req.params.userId, 10);
+  const projectId = parseInt(req.params.projectId, 10);
 
-  // vérifier les champs du formulaire
-  const error = validateComment({
-    content,
-  });
+  const error = validateComment(req.body);
 
   if (error) {
     console.warn(error);
     return res.status(422).json(error);
   }
-
   try {
-    const commentCreated = await comment.createOne({
-      content,
+    const commentCreated = await comments.createOne({
+      ...req.body,
+      userId,
+      projectId,
     });
     return res.status(201).json({ commentCreated });
   } catch (e) {
@@ -27,13 +26,13 @@ const createOne = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const commentList = await comment.getAll();
+    const commentList = await comments.getAll();
     if (commentList.length === 0) {
-      return res.status(404).send("Aucun commentaire trouvé");
+      return res.status(404).send("Aucun commentaires trouvé");
     }
     const newCommentList = commentList.map((u) => ({
       id: u.id,
-      comment: u.comment,
+      content: u.content,
     }));
     return res.status(200).json(newCommentList);
   } catch (e) {
@@ -45,12 +44,11 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const currentUser = await comment.getOne(id);
-    if (!currentUser) {
-      return res.status(404).send("Aucun utilisateur trouvé");
+    const currentComment = await comments.getOne(id);
+    if (!currentComment) {
+      return res.status(404).send("Aucun commentaires trouvé");
     }
-    delete currentUser.hashedPassword;
-    return res.status(200).json({ currentUser });
+    return res.status(200).json({ currentComment });
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);
@@ -58,44 +56,27 @@ const getOne = async (req, res) => {
 };
 
 const editOne = async (req, res) => {
-  // est-ce que le user avec l'id existe
   const { id } = req.params;
   console.warn(req.body);
 
-  const exitingUser = await comment.getOne(id);
+  const exitingComment = await comments.getOne(id);
 
-  // s'il existe pas retourne une 404
-  if (!exitingUser) {
+  if (!exitingComment) {
     return res.sendStatus(404);
   }
 
-  // s'il existe je vais valider avec joi
-  const error = validateComment(req.body, false);
+  const error = validateComment(req.body, true);
 
   if (error) {
     console.warn(error);
     return res.status(422).json(error);
   }
 
-  if (req.body.password) {
-    try {
-      console.warn({
-        ...req.body,
-      });
-
-      const userUpdated = await comment.editOne(id);
-      delete userUpdated.hashedPassword;
-      return res
-        .status(200)
-        .json({ "Utilisateur mis jour :": { userUpdated } });
-    } catch (e) {
-      return res.sendStatus(500);
-    }
-  }
-  // si j'ai pas d'erreur je lance le modèle editone
   try {
-    const userUpdated = await comment.editOne(id, req.body);
-    return res.status(200).json({ "Utilisateur mis jour :": { userUpdated } });
+    const commentUpdated = await comments.editOne(id, req.body);
+    return res
+      .status(200)
+      .json({ "Commentaire mis jour :": { commentUpdated } });
   } catch (e) {
     return res.sendStatus(500);
   }
@@ -103,16 +84,15 @@ const editOne = async (req, res) => {
 
 const deleteOne = async (req, res) => {
   const { id } = req.params;
-  // check que le user existe
-  const userCheck = await comment.getOne(id);
-  if (!userCheck) {
-    return res.status(404).json({ Erreur: "Aucun utilisateur trouvé" });
+  const commentCheck = await comments.getOne(id);
+  if (!commentCheck) {
+    return res.status(404).json({ Erreur: "Aucun commentaire trouvé" });
   }
   try {
-    await comment.deleteOne(id);
+    await comments.deleteOne(id);
     return res
       .status(200)
-      .json({ Succès: `Utilisateur supprimé avec succès ` });
+      .json({ Succès: `Commentaire supprimé avec succès ` });
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);

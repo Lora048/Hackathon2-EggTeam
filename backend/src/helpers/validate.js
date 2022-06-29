@@ -18,13 +18,27 @@ exports.validateUser = (data, forCreation = true) => {
   return false;
 };
 
+exports.validateProject = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  const validationErrors = Joi.object({
+    title: Joi.string().min(2).max(100).presence(presence),
+    description: Joi.string().max(1000).presence(presence),
+    cover: Joi.string().max(1000).presence("optional").allow(null, ""),
+    status: Joi.string().max(100).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
+
 exports.validateComment = (data, forCreation = true) => {
-  const presence = forCreation ? "required" : "optionnal";
-  const validationCommentErrors = Joi.object({
+  const presence = forCreation && "required";
+  const validationErrors = Joi.object({
     content: Joi.string().max(1000).presence(presence),
   }).validate(data, { abortEarly: false }).error;
-  if (validationCommentErrors) {
-    return validationCommentErrors;
+  if (validationErrors) {
+    return validationErrors;
   }
   return false;
 };
