@@ -28,10 +28,11 @@ router.delete("/projects/:id", ProjectController.deleteOne);
 // routes for votes
 router.get("/votes", VoteController.getAll);
 
-// a modifier pour regarder /users/:userid/projects/projectsId/votes
-router.get("/votes/:id", VoteController.getOne);
+router.get(
+  "/users/:userId/projects/:projectId/votes",
+  VoteController.getOnebyUserAndProject
+);
 
-// vérifier que le vote n'existe pas avant de le créer
 router.post(
   "/users/:userId/projects/:projectId/votes",
   VoteController.createOne
