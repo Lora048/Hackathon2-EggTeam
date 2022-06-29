@@ -14,7 +14,11 @@ const createOne = async (content) => {
 
 const getAll = async () => {
   try {
-    return await prisma.comments.findMany();
+    return await prisma.comments.findMany({
+      include: {
+        fk_comments_userId: true,
+      },
+    });
   } finally {
     await prisma.$disconnect();
   }
