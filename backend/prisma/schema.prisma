@@ -11,17 +11,22 @@ datasource db {
 }
 
 model user {
-  id             Int       @id @default(autoincrement())
-  firstname      String    @db.VarChar(100)
-  lastname       String    @db.VarChar(100)
-  jobPost        String    @db.VarChar(100)
-  hardSkills     Json
-  agency         String    @db.VarChar(100)
-  picture        String    @db.VarChar(1000)
-  email          String    @unique @db.VarChar(100)
-  hashedPassword String    @db.VarChar(255)
-  project        project[]
-  votes          votes[]
+  id                         Int                          @id @default(autoincrement())
+  firstname                  String                       @db.VarChar(100)
+  lastname                   String                       @db.VarChar(100)
+  jobPost                    String                       @db.VarChar(100)
+  hardSkills                 Json
+  agency                     String                       @db.VarChar(100)
+  picture                    String                       @db.VarChar(1000)
+  email                      String                       @unique @db.VarChar(100)
+  hashedPassword             String                       @db.VarChar(255)
+  project                    project[]
+  votes                      vote[]
+  document                   document[]
+  task                       task[]
+  comments                   comments[]
+  comments_reply             comments_reply[]
+  participation_user_project participation_user_project[]
 }
 
 model project {
@@ -34,14 +39,69 @@ model project {
   status            String   @db.VarChar(100)
   fk_project_userId user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  votes votes[]
+  votes                      vote[]
+  document                   document[]
+  task                       task[]
+  comments                   comments[]
+  participation_user_project participation_user_project[]
 }
 
-model votes {
-  id          Int     @id @default(autoincrement())
-  userId      Int
-  projectId   Int
-  type        String  @db.VarChar(100)
-  fk_userId   user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  fk_projetId project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+model vote {
+  id           Int     @id @default(autoincrement())
+  userId       Int
+  projectId    Int
+  type         String  @db.VarChar(100)
+  fk_userId    user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_projectId project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model document {
+  id                    Int     @id @default(autoincrement())
+  name                  String  @db.VarChar(100)
+  type                  String  @db.VarChar(100)
+  url                   String  @db.VarChar(500)
+  userId                Int
+  projectId             Int
+  fk_document_userId    user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_document_projectId project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model task {
+  id                Int      @id @default(autoincrement())
+  title             String   @db.VarChar(100)
+  description       String   @db.VarChar(100)
+  status            String   @db.VarChar(100)
+  startDate         DateTime
+  dueDate           DateTime
+  userId            Int
+  projectId         Int
+  fk_task_userId    user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_task_projectId project  @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model comments {
+  id                    Int              @id @default(autoincrement())
+  content               String           @db.VarChar(1000)
+  userId                Int
+  projectId             Int
+  fk_comments_userId    user             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_comments_projectId project          @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  comments_reply        comments_reply[]
+}
+
+model comments_reply {
+  id                          Int      @id @default(autoincrement())
+  content                     String   @db.VarChar(1000)
+  userId                      Int
+  commentId                   Int
+  fk_comments_reply_userId    user     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_comments_reply_commentId comments @relation(fields: [commentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model participation_user_project {
+  id                                      Int     @id @default(autoincrement())
+  userId                                  Int
+  projectId                               Int
+  fk_participation_user_project_userId    user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_participation_user_project_projectId project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
