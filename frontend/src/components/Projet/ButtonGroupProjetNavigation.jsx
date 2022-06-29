@@ -4,12 +4,14 @@ import Description from "./Description";
 import Taches from "./Taches";
 import Contributeurs from "./Contributeurs";
 import Planning from "./Planning/Planning";
+import Commentaires from "./Commentaires";
+import Documents from "./Documents";
 
 export default function ButtonGroupProjetNavigation() {
   return (
     <Tabs
       variant="solid-rounded"
-      colorScheme="red"
+      colorScheme="brandScheme"
       isFitted
       w="100%"
       m="0 auto"
@@ -55,6 +57,12 @@ export default function ButtonGroupProjetNavigation() {
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           <Planning />
+        </TabPanel>
+        <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
+          <Commentaires />
+        </TabPanel>
+        <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
+          <Documents />
         </TabPanel>
       </TabPanels>
     </Tabs>

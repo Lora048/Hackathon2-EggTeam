@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { ReactTinyLink } from "react-tiny-link";
 
-export default function Description() {
+export default function Commentaires() {
   return (
     <Flex>
       <Flex p="2rem" flexDir="column" w="100%" gap="4">
@@ -9,7 +9,6 @@ export default function Description() {
           Backlog du projet
         </Text>
         <ReactTinyLink
-          align="center"
           cardSize="large"
           showGraphic
           maxLine={2}

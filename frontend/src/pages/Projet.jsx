@@ -8,7 +8,7 @@ export default function Projet() {
       <Box bgColor="white" w="20%" minW="20%" h="100vh">
         NAVBAR
       </Box>
-      <Flex p="2rem" flexDir="column" w="80%" gap="4">
+      <Flex p="2rem" flexDir="column" w="80%" gap="4" h="100vh">
         <Heading align="left">TITRE PROJET</Heading>
         <Flex
           w="100%"
