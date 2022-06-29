@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 
 const getAll = async () => {
   try {
-    return await prisma.document.findMany();
+    return await prisma.document.findMany({
+      include: {
+        fk_document_userId: true, // Return all fields
+      },
+    });
   } finally {
     await prisma.$disconnect();
   }
@@ -19,10 +23,10 @@ const getOne = async (id) => {
     await prisma.$disconnect();
   }
 };
-const createOne = async (img) => {
+const createOne = async (file) => {
   try {
     return await prisma.document.create({
-      data: img,
+      data: file,
     });
   } finally {
     await prisma.$disconnect();

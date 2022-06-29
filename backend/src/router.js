@@ -22,15 +22,17 @@ router.delete("/projects/:id", ProjectController.deleteOne);
 
 // routes for documents
 router.post(
-  "/users/:userId/projects/:projectid/documents",
+  "/users/:userId/projects/:projectId/documents",
   multer,
   FileController.addOne
 );
 
-// router.get("/projects/:projectid/documents", FileController.getAll);
-// router.delete(
-//   "/projects/:projectid/documents/:docid",
-//   FileController.deleteOne
-// );
+router.get("/projects/:projectId/documents", FileController.getAll);
+router.get("/projects/:projectId/documents/:docid", FileController.getOne);
+
+router.delete(
+  "/projects/:projectid/documents/:docid",
+  FileController.deleteOne
+);
 
 module.exports = router;
