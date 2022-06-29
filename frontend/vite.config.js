@@ -1,10 +1,13 @@
-const path = require("path");
+/* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+
+const path = require("path");
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: { port: 3001 },
   resolve: {
     alias: {
       "@assets": path.resolve(__dirname, "src/assets"),
