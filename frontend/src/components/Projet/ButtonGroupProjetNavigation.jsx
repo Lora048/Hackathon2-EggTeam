@@ -2,6 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import Description from "./Description";
 import Taches from "./Taches";
+import Contributeurs from "./Contributeurs";
 
 export default function ButtonGroupProjetNavigation() {
   return (
@@ -49,7 +50,7 @@ export default function ButtonGroupProjetNavigation() {
           <Taches />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
-          {/* <CardReviewCarousel movie={movie} /> */}
+          <Contributeurs />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           {/* <MovieVideoCarousel movie={movie} /> */}
