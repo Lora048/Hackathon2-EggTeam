@@ -31,3 +31,14 @@ exports.validateProject = (data, forCreation = true) => {
   }
   return false;
 };
+
+exports.validateVote = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  const validationErrors = Joi.object({
+    type: Joi.string().min(2).max(100).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
