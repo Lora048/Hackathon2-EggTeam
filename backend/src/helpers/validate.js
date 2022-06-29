@@ -31,3 +31,51 @@ exports.validateProject = (data, forCreation = true) => {
   }
   return false;
 };
+
+exports.validateVote = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  const validationErrors = Joi.object({
+    type: Joi.string().min(2).max(100).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
+
+exports.validateComment = (data, forCreation = true) => {
+  const presence = forCreation && "required";
+  const validationErrors = Joi.object({
+    content: Joi.string().max(1000).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
+
+exports.validateReply = (data, forCreation = true) => {
+  const presence = forCreation && "required";
+  const validationErrors = Joi.object({
+    content: Joi.string().max(1000).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
+
+exports.validateTask = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  const validationErrors = Joi.object({
+    title: Joi.string().min(2).max(100).presence(presence),
+    description: Joi.string().max(1000).presence(presence),
+    status: Joi.string().max(100).presence(presence),
+    startDate: Joi.string().max(100).presence("optional").allow(null, ""),
+    dueDate: Joi.string().max(100).presence("optional").allow(null, ""),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};

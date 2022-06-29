@@ -24,6 +24,11 @@ app.use(express.static(path.join(__dirname, "..", "..", "frontend", "dist")));
 // API routes
 app.use("/api", router);
 
+// API routes for upload
+// const fileRoutes = require("./routes/FileRoute");
+// app.use("/file", fileRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
+
 // Redirect all requests to the REACT app
 app.get("*", (req, res) => {
   res.sendFile(
