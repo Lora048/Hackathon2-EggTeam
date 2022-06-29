@@ -1,13 +1,114 @@
 const express = require("express");
-
-const { ItemController } = require("./controllers");
+const UserController = require("./controllers/UserController");
+const FileController = require("./controllers/FileController");
+const ProjectController = require("./controllers/ProjectController");
+const VoteController = require("./controllers/VoteController");
+const multer = require("./middleWares/multer");
+const CommentController = require("./controllers/CommentController");
+const ReplyController = require("./controllers/ReplyController");
+const ParticipationController = require("./controllers/ParticipationController");
 
 const router = express.Router();
 
-router.get("/items", ItemController.browse);
-router.get("/items/:id", ItemController.read);
-router.put("/items/:id", ItemController.edit);
-router.post("/items", ItemController.add);
-router.delete("/items/:id", ItemController.delete);
+// routes for users
+router.get("/users", UserController.getAll);
+router.get("/users/:id", UserController.getOne);
+router.post("/users", UserController.createOne);
+router.put("/users/:id", UserController.editOne);
+router.delete("/users/:id", UserController.deleteOne);
+
+// routes for projects
+router.get("/projects/participations", ParticipationController.getAll);
+router.get("/projects", ProjectController.getAll);
+router.get("/projects/:id", ProjectController.getOne);
+router.post("/users/:userId/projects", ProjectController.createOne);
+router.put("/projects/:id", ProjectController.editOne);
+router.delete("/projects/:id", ProjectController.deleteOne);
+
+// routes for votes
+router.get("/votes", VoteController.getAll);
+
+// a modifier pour regarder /users/:userid/projects/projectsId/votes
+router.get("/votes/:id", VoteController.getOne);
+
+// vérifier que le vote n'existe pas avant de le créer
+router.post(
+  "/users/:userId/projects/:projectId/votes",
+  VoteController.createOne
+);
+router.put("/vote/:id", VoteController.editOne);
+router.delete("/vote/:id", VoteController.deleteOne);
+
+// routes for documents
+router.post(
+  "/users/:userId/projects/:projectId/documents",
+  multer,
+  FileController.addOne
+);
+router.get("/projects/:projectId/documents", FileController.getAll);
+router.get("/projects/:projectId/documents/:docid", FileController.getOne);
+router.delete(
+  "/projects/:projectid/documents/:docid",
+  FileController.deleteOne
+);
+
+// routes for comments
+router.get(
+  "/users/:userId/projects/:projectId/comments",
+  CommentController.getAll
+);
+router.get(
+  "/users/:userId/projects/:projectId/comments/:id",
+  CommentController.getOne
+);
+router.post(
+  "/users/:userId/projects/:projectId/comments",
+  CommentController.createOne
+);
+router.put(
+  "/users/:userId/projects/:projectId/comments/:id",
+  CommentController.editOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/comments/:id",
+  CommentController.deleteOne
+);
+
+// routes for reply
+router.get(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply",
+  ReplyController.getAll
+);
+router.get(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.getOne
+);
+router.post(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/",
+  ReplyController.createOne
+);
+router.put(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.editOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.deleteOne
+);
+
+// routes for participation_user_project
+
+router.get(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.getOnebyUserAndProject
+);
+router.post(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.createOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.deleteOne
+);
 
 module.exports = router;
