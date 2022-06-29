@@ -21,7 +21,8 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
-    "prisma": "^4.0.0"
+    "prisma": "^4.0.0",
+    "template-fullstack": "file:.."
   },
   "rules": {
     "no-console": [
