@@ -15,10 +15,12 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.0.0",
+    "argon2": "^0.28.5",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
+    "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "prisma": "^4.0.0"
