@@ -5,6 +5,7 @@ const ProjectController = require("./controllers/ProjectController");
 const multer = require("./middleWares/multer");
 const CommentController = require("./controllers/CommentController");
 const ReplyController = require("./controllers/ReplyController");
+const ParticipationController = require("./controllers/ParticipationController");
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
 // routes for projects
+router.get("/projects/participations", ParticipationController.getAll);
 router.get("/projects", ProjectController.getAll);
 router.get("/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
@@ -77,6 +79,21 @@ router.put(
 router.delete(
   "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
   ReplyController.deleteOne
+);
+
+// routes for participation_user_project
+
+router.get(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.getOnebyUserAndProject
+);
+router.post(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.createOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.deleteOne
 );
 
 module.exports = router;
