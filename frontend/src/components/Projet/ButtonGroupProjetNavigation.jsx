@@ -1,6 +1,7 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import Description from "./Description";
+import Taches from "./Taches";
 
 export default function ButtonGroupProjetNavigation() {
   return (
@@ -44,13 +45,10 @@ export default function ButtonGroupProjetNavigation() {
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           <Description />
         </TabPanel>
-        <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "1.5rem" }} p="0">
-          {/* <CardCastingCarousel movie={movie} /> */}
+        <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
+          <Taches />
         </TabPanel>
-        <TabPanel
-          mt={{ base: "0.5rem", sm: "1rem", md: "2rem", lg: "1rem" }}
-          p="0"
-        >
+        <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           {/* <CardReviewCarousel movie={movie} /> */}
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">

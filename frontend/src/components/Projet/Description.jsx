@@ -1,8 +1,12 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
+// import Tiptap from "./Tiptap";
 
 export default function Description() {
   return (
-    <Flex>
+    <Flex flexDir="column">
+      <Text fontSize="2xl" align="left">
+        Détail du projet
+      </Text>
       <Flex p="2rem" flexDir="column" w="100%">
         <Text fontSize="2xl" align="left">
           Détail du projet
@@ -51,6 +55,7 @@ export default function Description() {
           </Flex>
         </Flex>
       </Flex>
+      {/* <Tiptap /> */}
     </Flex>
   );
 }
