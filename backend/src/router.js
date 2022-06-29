@@ -2,6 +2,7 @@ const express = require("express");
 const UserController = require("./controllers/UserController");
 const FileController = require("./controllers/FileController");
 const ProjectController = require("./controllers/ProjectController");
+const VoteController = require("./controllers/VoteController");
 const multer = require("./middleWares/multer");
 const CommentController = require("./controllers/CommentController");
 const ReplyController = require("./controllers/ReplyController");
@@ -22,6 +23,14 @@ router.post("/users/:userId/projects", ProjectController.createOne);
 router.put("/projects/:id", ProjectController.editOne);
 router.delete("/projects/:id", ProjectController.deleteOne);
 
+router.get("/votes", VoteController.getAll);
+router.get("/votes/:id", VoteController.getOne);
+router.post(
+  "/users/:userId/projects/:projectId/votes",
+  VoteController.createOne
+);
+router.put("/projects/:id", VoteController.editOne);
+router.delete("/projects/:id", VoteController.deleteOne);
 // routes for documents
 router.post(
   "/users/:userId/projects/:projectId/documents",
