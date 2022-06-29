@@ -31,3 +31,14 @@ exports.validateProject = (data, forCreation = true) => {
   }
   return false;
 };
+
+exports.validateComment = (data, forCreation = true) => {
+  const presence = forCreation && "required";
+  const validationErrors = Joi.object({
+    content: Joi.string().max(1000).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
