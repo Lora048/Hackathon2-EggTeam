@@ -13,7 +13,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-export default function Description() {
+export default function Contributeurs() {
   return (
     <Flex
       direction="column"

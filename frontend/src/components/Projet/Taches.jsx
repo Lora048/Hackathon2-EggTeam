@@ -4,9 +4,9 @@ import { ReactTinyLink } from "react-tiny-link";
 export default function Description() {
   return (
     <Flex>
-      <Flex p="2rem" flexDir="column" w="100%">
+      <Flex p="2rem" flexDir="column" w="100%" gap="4">
         <Text fontSize="2xl" align="left">
-          Détail du projet
+          Backlog du projet
         </Text>
         <ReactTinyLink
           cardSize="large"
