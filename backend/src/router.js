@@ -6,6 +6,7 @@ const VoteController = require("./controllers/VoteController");
 const multer = require("./middleWares/multer");
 const CommentController = require("./controllers/CommentController");
 const ReplyController = require("./controllers/ReplyController");
+const ParticipationController = require("./controllers/ParticipationController");
 
 const router = express.Router();
 
@@ -17,20 +18,27 @@ router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
 // routes for projects
+router.get("/projects/participations", ParticipationController.getAll);
 router.get("/projects", ProjectController.getAll);
 router.get("/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
 router.put("/projects/:id", ProjectController.editOne);
 router.delete("/projects/:id", ProjectController.deleteOne);
 
+// routes for votes
 router.get("/votes", VoteController.getAll);
+
+// a modifier pour regarder /users/:userid/projects/projectsId/votes
 router.get("/votes/:id", VoteController.getOne);
+
+// vérifier que le vote n'existe pas avant de le créer
 router.post(
   "/users/:userId/projects/:projectId/votes",
   VoteController.createOne
 );
-router.put("/projects/:id", VoteController.editOne);
-router.delete("/projects/:id", VoteController.deleteOne);
+router.put("/vote/:id", VoteController.editOne);
+router.delete("/vote/:id", VoteController.deleteOne);
+
 // routes for documents
 router.post(
   "/users/:userId/projects/:projectId/documents",
@@ -86,6 +94,21 @@ router.put(
 router.delete(
   "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
   ReplyController.deleteOne
+);
+
+// routes for participation_user_project
+
+router.get(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.getOnebyUserAndProject
+);
+router.post(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.createOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/participations/",
+  ParticipationController.deleteOne
 );
 
 module.exports = router;
