@@ -17,3 +17,17 @@ exports.validateUser = (data, forCreation = true) => {
   }
   return false;
 };
+
+exports.validateProject = (data, forCreation = true) => {
+  const presence = forCreation ? "required" : "optional";
+  const validationErrors = Joi.object({
+    title: Joi.string().min(2).max(100).presence(presence),
+    description: Joi.string().max(1000).presence(presence),
+    cover: Joi.string().max(1000).presence("optional").allow(null, ""),
+    status: Joi.string().max(100).presence(presence),
+  }).validate(data, { abortEarly: false }).error;
+  if (validationErrors) {
+    return validationErrors;
+  }
+  return false;
+};
