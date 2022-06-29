@@ -2,6 +2,7 @@ const express = require("express");
 const UserController = require("./controllers/UserController");
 const FileController = require("./controllers/FileController");
 const ProjectController = require("./controllers/ProjectController");
+const VoteController = require("./controllers/VoteController");
 const multer = require("./middleWares/multer");
 const CommentController = require("./controllers/CommentController");
 const ReplyController = require("./controllers/ReplyController");
@@ -23,6 +24,20 @@ router.get("/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
 router.put("/projects/:id", ProjectController.editOne);
 router.delete("/projects/:id", ProjectController.deleteOne);
+
+// routes for votes
+router.get("/votes", VoteController.getAll);
+
+// a modifier pour regarder /users/:userid/projects/projectsId/votes
+router.get("/votes/:id", VoteController.getOne);
+
+// vérifier que le vote n'existe pas avant de le créer
+router.post(
+  "/users/:userId/projects/:projectId/votes",
+  VoteController.createOne
+);
+router.put("/vote/:id", VoteController.editOne);
+router.delete("/vote/:id", VoteController.deleteOne);
 
 // routes for documents
 router.post(
