@@ -2,6 +2,7 @@ const express = require("express");
 const UserController = require("./controllers/UserController");
 const CommentController = require("./controllers/CommentController");
 const ProjectController = require("./controllers/ProjectController");
+const ReplyController = require("./controllers/ReplyController");
 
 const router = express.Router();
 
@@ -36,6 +37,27 @@ router.put(
 router.delete(
   "/users/:userId/projects/:projectId/comments/:id",
   CommentController.deleteOne
+);
+
+router.get(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply",
+  ReplyController.getAll
+);
+router.get(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.getOne
+);
+router.post(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/",
+  ReplyController.createOne
+);
+router.put(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.editOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/comments/:commentId/reply/:id",
+  ReplyController.deleteOne
 );
 
 module.exports = router;

@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 const createOne = async (content) => {
   try {
-    return await prisma.comments.create({
+    return await prisma.comments_reply.create({
       data: content,
     });
   } finally {
@@ -14,9 +14,9 @@ const createOne = async (content) => {
 
 const getAll = async () => {
   try {
-    return await prisma.comments.findMany({
+    return await prisma.comments_reply.findMany({
       include: {
-        fk_comments_userId: true,
+        fk_comments_reply_userId: true,
       },
     });
   } finally {
@@ -26,7 +26,7 @@ const getAll = async () => {
 
 const getOne = async (id) => {
   try {
-    return await prisma.comments.findUnique({
+    return await prisma.comments_reply.findUnique({
       where: { id: parseInt(id, 10) },
     });
   } finally {
@@ -36,7 +36,7 @@ const getOne = async (id) => {
 
 const editOne = async (id, data) => {
   try {
-    return await prisma.comments.update({
+    return await prisma.comments_reply.update({
       where: { id: parseInt(id, 10) },
       data,
     });
@@ -47,7 +47,9 @@ const editOne = async (id, data) => {
 
 const deleteOne = async (id) => {
   try {
-    return await prisma.comments.delete({ where: { id: parseInt(id, 10) } });
+    return await prisma.comments_reply.delete({
+      where: { id: parseInt(id, 10) },
+    });
   } finally {
     await prisma.$disconnect();
   }
