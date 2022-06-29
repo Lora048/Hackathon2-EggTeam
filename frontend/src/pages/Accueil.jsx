@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   Box,
   Grid,
@@ -6,7 +7,9 @@ import {
   useColorModeValue,
   Button,
   SimpleGrid,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import Banner from "../components/Accueil/Banner";
 import ProjectCard from "../components/Accueil/ProjectCard";
 import imageProjet from "../assets/Nft3.png";
@@ -15,12 +18,15 @@ import Projects from "../components/Accueil/Projects";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-export default function Accueil() {
+export default function Accueil(props) {
+  const { ...rest } = props;
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const textColorBrand = useColorModeValue("brand.500", "white");
+  const { onOpen } = useDisclosure();
+  const [fixed] = useState(false);
   return (
     <Box h="100vh">
-      <Navbar />
+      <Navbar onOpen={onOpen} fixed={fixed} {...rest} />
 
       <Flex>
         <Flex

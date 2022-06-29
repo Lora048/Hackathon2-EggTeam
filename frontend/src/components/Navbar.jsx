@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
+import AdminNavbarLinks from "./Accueil/NavbarLinksAdmin";
 
 export default function Navbar(props) {
   // eslint-disable-next-line no-unused-vars
@@ -111,42 +112,63 @@ export default function Navbar(props) {
         mb={gap}
       >
         <Box mb={{ sm: "8px", md: "0px" }}>
-          <Breadcrumb>
-            <BreadcrumbItem color={secondaryText} fontSize="sm" mb="5px">
-              <BreadcrumbLink href="#" color={secondaryText}>
-                Pages
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+          <Flex
+            w="100%"
+            flexDirection={{
+              sm: "column",
+              md: "row",
+            }}
+            alignItems={{ xl: "center" }}
+            mb={gap}
+          >
+            <Breadcrumb>
+              <BreadcrumbItem color={secondaryText} fontSize="sm" mb="5px">
+                <BreadcrumbLink href="#" color={secondaryText}>
+                  Pages
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-            <BreadcrumbItem color={secondaryText} fontSize="sm">
-              <BreadcrumbLink href="#" color={secondaryText}>
-                Projets
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          {/* Here we create navbar brand, based on route name */}
-          {onglets.map((onglet) => (
-            <Link
-              to="/"
-              color={mainText}
-              href="#"
-              bg="inherit"
-              borderRadius="inherit"
-              fontWeight="bold"
-              fontSize="34px"
-              _hover={{ color: { mainText } }}
-              _active={{
-                bg: "inherit",
-                transform: "none",
-                borderColor: "transparent",
-              }}
-              _focus={{
-                boxShadow: "none",
-              }}
-            >
-              {onglet.name}
-            </Link>
-          ))}
+              <BreadcrumbItem color={secondaryText} fontSize="sm">
+                <BreadcrumbLink href="#" color={secondaryText}>
+                  Projets
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+            {/* Here we create navbar brand, based on route name */}
+            {onglets.map((onglet) => (
+              <Link
+                to="/"
+                color={mainText}
+                href="#"
+                bg="inherit"
+                borderRadius="inherit"
+                fontWeight="bold"
+                fontSize="34px"
+                _hover={{ color: { mainText } }}
+                _active={{
+                  bg: "inherit",
+                  transform: "none",
+                  borderColor: "transparent",
+                }}
+                _focus={{
+                  boxShadow: "none",
+                }}
+              >
+                {onglet.name}
+              </Link>
+            ))}
+          </Flex>
+          <Flex>
+            <Box ms="auto" w={{ sm: "100%", md: "unset" }}>
+              <AdminNavbarLinks
+                onOpen={props.onOpen}
+                logoText={props.logoText}
+                secondary={props.secondary}
+                fixed={props.fixed}
+                scrolled={scrolled}
+              />
+            </Box>
+          </Flex>
         </Box>
       </Flex>
       {secondary ? <Text color="white">{message}</Text> : null}

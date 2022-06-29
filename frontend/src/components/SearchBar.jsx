@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/no-children-prop */
@@ -13,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-export default function SearchBar(props) {
+export function SearchBar(props) {
   // Pass the computed styles into the `__css` prop
   const { variant, background, children, placeholder, borderRadius, ...rest } =
     props;
