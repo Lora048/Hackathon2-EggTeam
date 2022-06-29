@@ -17,6 +17,7 @@ const getAll = async () => {
     return await prisma.comments_reply.findMany({
       include: {
         fk_comments_reply_userId: true,
+        fk_comments_reply_commentId: true,
       },
     });
   } finally {

@@ -2,10 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-const createOne = async (content) => {
+const createOne = async (tasks) => {
   try {
-    return await prisma.comments.create({
-      data: content,
+    return await prisma.task.create({
+      data: { ...tasks },
     });
   } finally {
     await prisma.$disconnect();
@@ -14,10 +14,10 @@ const createOne = async (content) => {
 
 const getAll = async () => {
   try {
-    return await prisma.comments.findMany({
+    return await prisma.task.findMany({
       include: {
-        fk_comments_userId: true,
-        fk_comments_projectId: true,
+        fk_task_userId: true,
+        fk_task_projectId: true,
       },
     });
   } finally {
@@ -27,7 +27,7 @@ const getAll = async () => {
 
 const getOne = async (id) => {
   try {
-    return await prisma.comments.findUnique({
+    return await prisma.task.findUnique({
       where: { id: parseInt(id, 10) },
     });
   } finally {
@@ -37,7 +37,7 @@ const getOne = async (id) => {
 
 const editOne = async (id, data) => {
   try {
-    return await prisma.comments.update({
+    return await prisma.task.update({
       where: { id: parseInt(id, 10) },
       data,
     });
@@ -48,7 +48,7 @@ const editOne = async (id, data) => {
 
 const deleteOne = async (id) => {
   try {
-    return await prisma.comments.delete({ where: { id: parseInt(id, 10) } });
+    return await prisma.task.delete({ where: { id: parseInt(id, 10) } });
   } finally {
     await prisma.$disconnect();
   }

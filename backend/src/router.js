@@ -3,6 +3,7 @@ const UserController = require("./controllers/UserController");
 const CommentController = require("./controllers/CommentController");
 const ProjectController = require("./controllers/ProjectController");
 const ReplyController = require("./controllers/ReplyController");
+const TaskController = require("./controllers/TaskController");
 
 const router = express.Router();
 
@@ -12,11 +13,11 @@ router.post("/users", UserController.createOne);
 router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
-router.get("/projects", ProjectController.getAll);
-router.get("/projects/:id", ProjectController.getOne);
+router.get("/users/:id/projects", ProjectController.getAll);
+router.get("/users/:id/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
-router.put("/projects/:id", ProjectController.editOne);
-router.delete("/projects/:id", ProjectController.deleteOne);
+router.put("/users/:id/projects/:id", ProjectController.editOne);
+router.delete("/users/:id/projects/:id", ProjectController.deleteOne);
 
 router.get(
   "/users/:userId/projects/:projectId/comments",
@@ -60,4 +61,21 @@ router.delete(
   ReplyController.deleteOne
 );
 
+router.get("/users/:userId/projects/:projectId/tasks", TaskController.getAll);
+router.get(
+  "/users/:userId/projects/:projectId/tasks/:id",
+  TaskController.getOne
+);
+router.post(
+  "/users/:userId/projects/:projectId/tasks",
+  TaskController.createOne
+);
+router.put(
+  "/users/:userId/projects/:projectId/tasks/:id",
+  TaskController.editOne
+);
+router.delete(
+  "/users/:userId/projects/:projectId/tasks/:id",
+  TaskController.deleteOne
+);
 module.exports = router;
