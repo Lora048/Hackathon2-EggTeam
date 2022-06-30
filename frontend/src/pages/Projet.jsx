@@ -1,13 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Flex } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import axios from "axios";
 import ButtonGroupProjetNavigation from "../components/Projet/ButtonGroupProjetNavigation";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 import HeadProject from "../components/Projet/HeadProject";
 
 export default function Projet() {
   const { userId } = useParams();
+  const { projectId } = useParams();
+  const [projet, setProjet] = useState();
+
+  const getProject = () => {
+    axios
+      .get(`http://localhost:5001/api/projects/${projectId}`)
+      .then((response) => {
+        setProjet(response.data.currentProject);
+      });
+  };
+
+  useEffect(() => {
+    getProject();
+  }, [projectId, projet]);
 
   return (
     <Flex>
@@ -29,7 +44,7 @@ export default function Projet() {
           gap="5"
         >
           <HeadProject />
-          <ButtonGroupProjetNavigation />
+          <ButtonGroupProjetNavigation project={projet} />
         </Flex>
       </Flex>
     </Flex>

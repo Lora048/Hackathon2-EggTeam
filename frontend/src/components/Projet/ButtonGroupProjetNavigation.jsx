@@ -7,7 +7,8 @@ import Planning from "./Planning/Planning";
 import Commentaires from "./Commentaires";
 import Documents from "./Documents";
 
-export default function ButtonGroupProjetNavigation() {
+// eslint-disable-next-line react/prop-types
+export default function ButtonGroupProjetNavigation({ project }) {
   return (
     <Tabs variant="solid-rounded" isFitted w="100%" m="0 auto" marginTop="1rem">
       <TabList
@@ -83,7 +84,7 @@ export default function ButtonGroupProjetNavigation() {
 
       <TabPanels>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
-          <Description />
+          <Description project={project} />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           <Taches />
