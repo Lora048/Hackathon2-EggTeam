@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Flex } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
 import ButtonGroupProjetNavigation from "../components/Projet/ButtonGroupProjetNavigation";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 import HeadProject from "../components/Projet/HeadProject";
 
 export default function Projet() {
+  const { userId } = useParams();
+
   return (
     <Flex>
       <Flex
@@ -14,7 +17,7 @@ export default function Projet() {
         gap="20px"
         flexDir="column"
       >
-        <Sidebar />
+        <Sidebar user={userId} />
       </Flex>
       <Flex p="2rem" flexDir="column" w="80%" h="100vh">
         <Flex

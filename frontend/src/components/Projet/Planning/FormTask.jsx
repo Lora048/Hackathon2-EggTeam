@@ -49,20 +49,19 @@ function FormTask() {
 
   const postTask = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        `http://localhost:5001/api/users/${userId}/projects/${projectId}/tasks`,
-        {
-          userId: parseInt(userId, 10),
-          projectId: parseInt(projectId, 10),
-          title,
-          description,
-          status,
-          startDate,
-          dueDate,
-        }
-      )
-      .then((response) => console.log(response));
+    axios.post(
+      `http://localhost:5001/api/users/${userId}/projects/${projectId}/tasks`,
+      {
+        userId: parseInt(userId, 10),
+        projectId: parseInt(projectId, 10),
+        title,
+        description,
+        status,
+        startDate,
+        dueDate,
+      }
+    );
+    //   .then((response) => console.log(response));
   };
 
   return (

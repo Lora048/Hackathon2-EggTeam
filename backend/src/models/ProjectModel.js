@@ -24,6 +24,19 @@ const getAll = async () => {
   }
 };
 
+const getAllProjectsForOneUser = async (userId) => {
+  try {
+    return await prisma.project.findMany({
+      where: { userId: parseInt(userId, 10) },
+      include: {
+        fk_project_userId: true,
+      },
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const getOne = async (id) => {
   try {
     return await prisma.project.findUnique({ where: { id: parseInt(id, 10) } });
@@ -51,4 +64,11 @@ const deleteOne = async (id) => {
   }
 };
 
-module.exports = { createOne, getAll, getOne, editOne, deleteOne };
+module.exports = {
+  createOne,
+  getAll,
+  getOne,
+  editOne,
+  deleteOne,
+  getAllProjectsForOneUser,
+};

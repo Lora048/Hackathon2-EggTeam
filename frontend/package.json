@@ -17,6 +17,10 @@
     "@emotion/styled": "^11.9.3",
     "@fontsource/dm-sans": "^4.5.7",
     "@fontsource/poppins": "^4.5.8",
+    "@tiptap/extension-bubble-menu": "^2.0.0-beta.61",
+    "@tiptap/extension-document": "^2.0.0-beta.17",
+    "@tiptap/extension-highlight": "^2.0.0-beta.35",
+    "@tiptap/extension-typography": "^2.0.0-beta.22",
     "@tiptap/react": "^2.0.0-beta.114",
     "@tiptap/starter-kit": "^2.0.0-beta.190",
     "axios": "^0.27.2",
@@ -31,6 +35,8 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-tiny-link": "^3.6.1",
+    "remixicon": "^2.5.0",
+    "sass": "^1.53.0",
     "template-fullstack": "file:.."
   },
   "devDependencies": {

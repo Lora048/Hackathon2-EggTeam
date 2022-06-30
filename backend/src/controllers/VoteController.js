@@ -12,9 +12,9 @@ const createOne = async (req, res) => {
   }
 
   try {
-    const voteList = await vote.getOnebyUserAndProject();
-    if (voteList.length !== 0) {
-      return res.status(404).send("Un vote existe déjà");
+    const voteList = await vote.getOnebyUserAndProject(userId, projectId);
+    if (voteList.length > 0) {
+      return res.status(409).send("Un vote existe déjà");
     }
     const voteCreated = await vote.createOne({
       ...req.body,
@@ -50,7 +50,7 @@ const getOnebyUserAndProject = async (req, res) => {
     if (!vote) {
       return res.status(404).send("Aucun vote trouvé");
     }
-    return res.status(200).json({ voteCheck });
+    return res.status(200).json(voteCheck);
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);
