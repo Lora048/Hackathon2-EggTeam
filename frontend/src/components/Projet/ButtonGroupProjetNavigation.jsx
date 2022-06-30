@@ -1,7 +1,7 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import Description from "./Description";
-import Taches from "./Taches";
+import Taches from "./Outils";
 import Contributeurs from "./Contributeurs";
 import Planning from "./Planning/Planning";
 import Commentaires from "./Commentaires";
@@ -37,7 +37,7 @@ export default function ButtonGroupProjetNavigation() {
             bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
           }}
         >
-          Tâches
+          Outils
         </Tab>
         <Tab
           fontSize={{ base: "sm", sm: "md", md: "xl" }}
