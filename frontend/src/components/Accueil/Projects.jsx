@@ -32,7 +32,9 @@ export default function Projects() {
         image={imageProject}
         number="4"
         link="#"
-        title="A venir"
+        title="Idées germées
+
+        "
       />
       <Project
         boxShadow={cardShadow}
@@ -40,14 +42,16 @@ export default function Projects() {
         image={imageProject}
         number="27"
         link="#"
-        title="Terminés"
+        title="Projets prêts
+
+        "
       />
       <Project
         boxShadow={cardShadow}
         image={imageProject}
         number="12"
         link="#"
-        title="En cours"
+        title="En cours de développement"
       />
     </Card>
   );
