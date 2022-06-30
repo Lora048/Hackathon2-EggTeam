@@ -29,27 +29,24 @@ export default function Accueil(props) {
       <Navbar onOpen={onOpen} fixed={fixed} {...rest} />
 
       <Flex>
-        <Flex
-          minW={{ base: "100%", lg: "15%" }}
-          minH="20vh"
-          gap="20px"
-          flexDir="column"
-        >
+        <Flex minW="17vw" minH="20vh" gap="20px" flexDir="column">
           <Sidebar />
         </Flex>
 
-        <Flex pt={{ base: "180px", md: "80px", xl: "80px" }}>
+        <Flex minW="80vw" pt={{ base: "180px", md: "80px", xl: "80px" }}>
           {/* Main Fields */}
           <Grid
             mb="20px"
             gridTemplateColumns={{ xl: "1fr 2fr", "2xl": "1fr 2fr" }}
             gap={{ base: "20px", xl: "20px" }}
             display={{ base: "block", xl: "grid" }}
+            w="85vw"
           >
             <Flex
               flexDirection="column"
               gridArea={{ xl: "1 / 1 / 2 / 3", "2xl": "1 / 1 / 2 / 2" }}
               mt="10%"
+              w="20vw"
             >
               <Card px="0px">
                 <Projects />
@@ -73,7 +70,8 @@ export default function Accueil(props) {
               flexDirection="column"
               gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
               mt="5%"
-              mr="2%"
+              mr="2vw"
+              w="59vw"
             >
               <Banner />
               <Flex direction="column">
