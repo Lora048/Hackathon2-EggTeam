@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalBody,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -23,7 +24,7 @@ export default function Contributeurs() {
 
   return (
     <Flex p="2rem" flexDir="column" w="100%" gap="4">
-      <Flex justifyContent="space-around" pb="3">
+      <Flex justifyContent="space-between" pb="4" pl="1em" pr="1em">
         <Text fontSize="2xl" align="left">
           Planning du projet
         </Text>
@@ -43,6 +44,7 @@ export default function Contributeurs() {
             modalTask.onOpen();
           }}
         >
+          <AddIcon pr={2} />
           Planifier une tâche
         </Button>
         <Modal

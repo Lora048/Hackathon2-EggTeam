@@ -8,7 +8,12 @@ import {
   FormControl,
   Select,
   Heading,
+  CloseButton,
+  Textarea,
 } from "@chakra-ui/react";
+import "react-modern-calendar-datepicker/lib/DatePicker.css";
+import DatePicker from "react-modern-calendar-datepicker";
+
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -19,8 +24,9 @@ function FormTask() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [dueDate, setDueDate] = useState("");
+  //   const [startDate, setStartDate] = useState(null);
+  //   const [dueDate, setDueDate] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -31,11 +37,14 @@ function FormTask() {
   const handleStatus = (e) => {
     setStatus(e.target.value);
   };
+  //   const handleStartDate = (e) => {
+  //     setStartDate(e.target.value);
+  //   };
+  //   const handleDueDate = (e) => {
+  //     setDueDate(e.target.value);
+  //   };
   const handleStartDate = (e) => {
-    setStartDate(e.target.value);
-  };
-  const handleDueDate = (e) => {
-    setDueDate(e.target.value);
+    setSelectedDay(e.target.value);
   };
 
   const postTask = (e) => {
@@ -46,8 +55,8 @@ function FormTask() {
         title,
         description,
         status,
-        startDate,
-        dueDate,
+        // startDate,
+        // dueDate,
       }
     );
   };
@@ -63,6 +72,7 @@ function FormTask() {
             spacing={{ base: 8 }}
             maxW={{ lg: "2xl" }}
           >
+            <CloseButton color="brand.500" alignSelf="end" />
             <Stack spacing={2}>
               <Heading alignSelf="center" color="brand.500" lineHeight={1.1}>
                 Créer une nouvelle tâche :
@@ -83,7 +93,7 @@ function FormTask() {
                       mr="1rem"
                       onChange={handleTitle}
                     />
-                    <Input
+                    <Textarea
                       placeholder="Description de la tâche"
                       bg="gray.100"
                       border={0}
@@ -112,7 +122,7 @@ function FormTask() {
                       <option value="En cours">En cours</option>
                       <option value="Terminée">Terminée</option>
                     </Select>
-                    <Input
+                    {/* <Input
                       placeholder="Date de début"
                       bg="gray.100"
                       border={0}
@@ -131,6 +141,24 @@ function FormTask() {
                         color: "gray.500",
                       }}
                       onChange={handleDueDate}
+                    /> */}
+                    {/* <DatePicker
+                      value={setStartDate}
+                      onChange={handleStartDate}
+                      inputPlaceholder="Select a day"
+                      shouldHighlightWeekends
+                    />
+                    <DatePicker
+                      value={setDueDate}
+                      onChange={handleDueDate}
+                      inputPlaceholder="Select a day"
+                      shouldHighlightWeekends
+                    /> */}
+                    <DatePicker
+                      value={selectedDay}
+                      onChange={handleStartDate}
+                      inputPlaceholder="Select a day"
+                      shouldHighlightWeekends
                     />
                   </Stack>
                 </Flex>
