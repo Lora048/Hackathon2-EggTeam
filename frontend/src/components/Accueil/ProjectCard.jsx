@@ -157,7 +157,7 @@ export default function ProjectCard({ project }) {
               colorScheme="purple"
               marginLeft={{ base: 0, "2xl": "50px" }}
             >
-              JavaScript
+              Javascript
             </Tag>
 
             {/* <Text fontWeight="700" fontSize="sm" color={textColorBid}>

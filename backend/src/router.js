@@ -18,11 +18,16 @@ router.post("/users", UserController.createOne);
 router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
+router.get("/projects", ProjectController.getAll);
+router.get(
+  "/users/:userId/projects",
+  ProjectController.getAllProjectsForOneUser
+);
+router.get("/users/:id/projects/:id", ProjectController.getOne);
 router.get("/users/:id/projects", ProjectController.getAll);
 router.get("/users/:userid/projects/:id", ProjectController.getOne);
 // routes for projects
 router.get("/projects/participations", ParticipationController.getAll);
-router.get("/projects", ProjectController.getAll);
 router.get("/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
 router.put("/users/:id/projects/:id", ProjectController.editOne);
@@ -30,12 +35,10 @@ router.delete("/users/:id/projects/:id", ProjectController.deleteOne);
 
 // routes for votes
 router.get("/votes", VoteController.getAll);
-
 router.get(
   "/users/:userId/projects/:projectId/votes",
   VoteController.getOnebyUserAndProject
 );
-
 router.post(
   "/users/:userId/projects/:projectId/votes",
   VoteController.createOne
