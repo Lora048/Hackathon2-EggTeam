@@ -41,7 +41,7 @@ const getOnebyUserAndProject = async (req, res) => {
     if (!participation) {
       return res.status(404).send("Aucune participation trouvée");
     }
-    return res.status(200).json({ participationCheck });
+    return res.status(200).json(participationCheck);
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);

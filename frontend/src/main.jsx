@@ -14,7 +14,6 @@ import "@fontsource/poppins/800.css";
 import "@fontsource/poppins/900.css";
 
 import { BrowserRouter } from "react-router-dom";
-
 import { ChakraProvider } from "@chakra-ui/react";
 import ScrollToTop from "./components/ScrollToTop";
 

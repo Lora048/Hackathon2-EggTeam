@@ -10,14 +10,18 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
   Flex,
+  useDisclosure,
   Link,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import AdminNavbarLinks from "./NavbarLinksAdmin";
+import CreateProjectModal from "../../CreateProject/CreateProjectModal";
 
 export default function Navbar(props) {
   // eslint-disable-next-line no-unused-vars
@@ -31,7 +35,7 @@ export default function Navbar(props) {
     };
   });
 
-  const { secondary, message } = props;
+  const { secondary, message, user } = props;
 
   // Here are all the props that may change depending on navbar's type or state.(secondary, variant, scrolled)
   const mainText = useColorModeValue("navy.700", "white");
@@ -57,6 +61,7 @@ export default function Navbar(props) {
   };
 
   const onglets = [{ name: "Projets" }];
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box>
@@ -148,7 +153,23 @@ export default function Navbar(props) {
           </Flex>
         </Flex>
 
-        <Box ms="auto" w={{ sm: "100%", md: "unset" }}>
+        <Box
+          ms="auto"
+          w={{ sm: "100%", md: "unset" }}
+          display="flex"
+          alignItems="center"
+          gap="18px"
+        >
+          <Button
+            leftIcon={<AddIcon />}
+            size="md"
+            bgColor="orange.400"
+            _hover={{ bgColor: "orange.500" }}
+            color="white"
+            onClick={onOpen}
+          >
+            Créer un projet
+          </Button>
           <AdminNavbarLinks
             onOpen={props.onOpen}
             logoText={props.logoText}
@@ -160,6 +181,12 @@ export default function Navbar(props) {
       </Box>
 
       {secondary ? <Text color="white">{message}</Text> : null}
+      <CreateProjectModal
+        onOpen={onOpen}
+        isOpen={isOpen}
+        onClose={onClose}
+        user={user}
+      />
     </Box>
   );
 }

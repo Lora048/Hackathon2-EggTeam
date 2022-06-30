@@ -18,6 +18,7 @@ import {
   InputLeftElement,
   Select,
 } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -29,8 +30,11 @@ import Navbar from "../components/Accueil/Navbar/Navbar";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 
 export default function Accueil(props) {
+  const { userId } = useParams();
+
   const { variant, background, children, placeholder, borderRadius, ...rest } =
     props;
+
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const textColorBrand = useColorModeValue("brand.500", "white");
   const { onOpen } = useDisclosure();
@@ -81,11 +85,11 @@ export default function Accueil(props) {
 
   return (
     <Box h="100vh">
-      <Navbar onOpen={onOpen} fixed={fixed} {...rest} />
+      <Navbar onOpen={onOpen} fixed={fixed} {...rest} user={userId} />
 
       <Flex>
         <Flex minW="17vw" minH="20vh" gap="20px" flexDir="column">
-          <Sidebar />
+          <Sidebar user={userId} />
         </Flex>
 
         <Flex minW="80vw" pt={{ base: "180px", md: "80px", xl: "80px" }}>
