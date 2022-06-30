@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import AdminNavbarLinks from "./Accueil/NavbarLinksAdmin";
+import AdminNavbarLinks from "./NavbarLinksAdmin";
 
 export default function Navbar(props) {
   // eslint-disable-next-line no-unused-vars

@@ -22,7 +22,7 @@ import React from "react";
 import { MdNotificationsNone, MdInfoOutline } from "react-icons/md";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { FaEthereum } from "react-icons/fa";
-import { SearchBar } from "../SearchBar";
+import { SearchBar } from "./SearchBar";
 
 export default function HeaderLinks(props) {
   const { secondary } = props;

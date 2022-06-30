@@ -15,8 +15,8 @@ import ProjectCard from "../components/Accueil/ProjectCard";
 import imageProjet from "../assets/Nft3.png";
 import Card from "../components/Accueil/Card";
 import Projects from "../components/Accueil/Projects";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Accueil/Navbar/Navbar";
+import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 
 export default function Accueil(props) {
   const { ...rest } = props;

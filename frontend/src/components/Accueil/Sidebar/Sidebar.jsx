@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 // chakra imports
-import { Box, useColorModeValue, Flex, Link, Stack } from "@chakra-ui/react";
+import { Box, useColorModeValue, Flex, Stack } from "@chakra-ui/react";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { renderThumb, renderTrack, renderView } from "./Scrollbar";
-
+import { renderThumb, renderTrack, renderView } from "../Scrollbar";
+import { LiensSidebar } from "./LiensSidebar";
 // Assets
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const variantChange = "0.2s linear";
   const shadow = useColorModeValue(
     "14px 17px 40px 4px rgba(112, 144, 176, 0.08)",
@@ -17,11 +18,7 @@ export default function Sidebar() {
   const sidebarBg = useColorModeValue("white", "navy.800");
   const sidebarMargins = "0px";
 
-  const links = [
-    { name: "Accueil" },
-    { name: "Projets" },
-    { name: "Mon profil" },
-  ];
+  const { liens } = props;
 
   // SIDEBAR
   return (
@@ -50,9 +47,7 @@ export default function Sidebar() {
                 ps="20px"
                 pe={{ md: "16px", "2xl": "1px" }}
               >
-                {links.map((link) => (
-                  <Link to="/"> {link.name} </Link>
-                ))}
+                <LiensSidebar routes={liens} />
               </Flex>
             </Stack>
           </Flex>
