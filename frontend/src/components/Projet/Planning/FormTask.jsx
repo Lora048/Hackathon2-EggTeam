@@ -10,9 +10,11 @@ import {
   Heading,
   CloseButton,
   Textarea,
+  Text,
 } from "@chakra-ui/react";
-import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import DatePicker from "react-modern-calendar-datepicker";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import { useParams } from "react-router-dom";
 import { useState } from "react";
@@ -24,9 +26,9 @@ function FormTask() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
-  //   const [startDate, setStartDate] = useState(null);
-  //   const [dueDate, setDueDate] = useState(null);
-  const [selectedDay, setSelectedDay] = useState(null);
+
+  const [dueDate, setDueDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -37,32 +39,34 @@ function FormTask() {
   const handleStatus = (e) => {
     setStatus(e.target.value);
   };
-  //   const handleStartDate = (e) => {
-  //     setStartDate(e.target.value);
-  //   };
+
   //   const handleDueDate = (e) => {
   //     setDueDate(e.target.value);
   //   };
-  const handleStartDate = (e) => {
-    setSelectedDay(e.target.value);
-  };
+  //   const handleStartDate = (e) => {
+  //     setSelectedDay(e.target.value);
+  //   };
 
   const postTask = (e) => {
     e.preventDefault();
-    axios.post(
-      `http://localhost:5001/api/users/:${userId}/projects/:${projectId}/tasks`,
-      {
-        title,
-        description,
-        status,
-        // startDate,
-        // dueDate,
-      }
-    );
+    axios
+      .post(
+        `http://localhost:5001/api/users/${userId}/projects/${projectId}/tasks`,
+        {
+          userId: parseInt(userId, 10),
+          projectId: parseInt(projectId, 10),
+          title,
+          description,
+          status,
+          startDate,
+          dueDate,
+        }
+      )
+      .then((response) => console.log(response));
   };
 
   return (
-    <FormControl isRequired onSubmit={postTask}>
+    <FormControl isRequired>
       <Box bgSize="cover">
         <Container py={{ base: 5, sm: 10, lg: 15 }} z-index="10" h="auto">
           <Stack
@@ -122,44 +126,42 @@ function FormTask() {
                       <option value="En cours">En cours</option>
                       <option value="Terminée">Terminée</option>
                     </Select>
-                    {/* <Input
-                      placeholder="Date de début"
-                      bg="gray.100"
-                      border={0}
-                      color="gray.500"
-                      _placeholder={{
-                        color: "gray.500",
-                      }}
-                      onChange={handleStartDate}
-                    />
-                    <Input
-                      placeholder="Date de fin"
-                      bg="gray.100"
-                      border={0}
-                      color="gray.500"
-                      _placeholder={{
-                        color: "gray.500",
-                      }}
-                      onChange={handleDueDate}
-                    /> */}
-                    {/* <DatePicker
-                      value={setStartDate}
-                      onChange={handleStartDate}
-                      inputPlaceholder="Select a day"
-                      shouldHighlightWeekends
-                    />
-                    <DatePicker
-                      value={setDueDate}
-                      onChange={handleDueDate}
-                      inputPlaceholder="Select a day"
-                      shouldHighlightWeekends
-                    /> */}
-                    <DatePicker
-                      value={selectedDay}
-                      onChange={handleStartDate}
-                      inputPlaceholder="Select a day"
-                      shouldHighlightWeekends
-                    />
+                    <Flex>
+                      <Text
+                        w="80"
+                        h="30"
+                        bg="gray.100"
+                        border={0}
+                        color="gray.500"
+                        pt="auto"
+                        pb="auto"
+                      >
+                        Date de début
+                      </Text>
+                      <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                      />
+                    </Flex>
+                    <Flex>
+                      <Text
+                        w="80"
+                        h="30"
+                        bg="gray.100"
+                        border={0}
+                        color="gray.500"
+                        pt="auto"
+                        pb="auto"
+                      >
+                        Date de fin
+                      </Text>
+                      <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        selected={dueDate}
+                        onChange={(date) => setDueDate(date)}
+                      />
+                    </Flex>
                   </Stack>
                 </Flex>
               </Stack>
@@ -167,7 +169,7 @@ function FormTask() {
           </Stack>
           <Button
             mt={8}
-            type="submit"
+            type="button"
             w="full"
             bgGradient="linear-gradient(135deg, #868CFF 0%, #4318FF 100%)"
             color="white"
@@ -175,6 +177,7 @@ function FormTask() {
               bgGradient: "linear(to-r, 135deg, #868CFF 0%, #4318FF 100%)",
               boxShadow: "xl",
             }}
+            onClick={postTask}
           >
             Enregistrer
           </Button>
