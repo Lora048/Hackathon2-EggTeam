@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import Banner from "../components/Accueil/Banner";
 import ProjectCard from "../components/Accueil/ProjectCard";
 import imageProjet from "../assets/Nft3.png";
@@ -19,6 +20,8 @@ import Navbar from "../components/Accueil/Navbar/Navbar";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 
 export default function Accueil(props) {
+  const { userId } = useParams();
+
   const { ...rest } = props;
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const textColorBrand = useColorModeValue("brand.500", "white");
@@ -26,11 +29,11 @@ export default function Accueil(props) {
   const [fixed] = useState(false);
   return (
     <Box h="100vh">
-      <Navbar onOpen={onOpen} fixed={fixed} {...rest} />
+      <Navbar onOpen={onOpen} fixed={fixed} {...rest} user={userId} />
 
       <Flex>
         <Flex minW="17vw" minH="20vh" gap="20px" flexDir="column">
-          <Sidebar />
+          <Sidebar user={userId} />
         </Flex>
 
         <Flex minW="80vw" pt={{ base: "180px", md: "80px", xl: "80px" }}>

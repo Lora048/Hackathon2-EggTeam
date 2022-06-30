@@ -38,6 +38,20 @@ const getAll = async (req, res) => {
   }
 };
 
+const getAllProjectsForOneUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const projectList = await project.getAllProjectsForOneUser(userId);
+    if (projectList.length === 0) {
+      return res.status(404).send("Aucun projet trouvé");
+    }
+    return res.status(200).json(projectList);
+  } catch (e) {
+    console.warn(e);
+    return res.sendStatus(500);
+  }
+};
+
 const getOne = async (req, res) => {
   const { id } = req.params;
   try {
@@ -92,4 +106,11 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { createOne, getAll, getOne, editOne, deleteOne };
+module.exports = {
+  createOne,
+  getAll,
+  getOne,
+  editOne,
+  deleteOne,
+  getAllProjectsForOneUser,
+};

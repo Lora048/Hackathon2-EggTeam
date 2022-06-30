@@ -18,11 +18,14 @@ router.post("/users", UserController.createOne);
 router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
-router.get("/users/:id/projects", ProjectController.getAll);
+router.get("/projects", ProjectController.getAll);
+router.get(
+  "/users/:userId/projects",
+  ProjectController.getAllProjectsForOneUser
+);
 router.get("/users/:id/projects/:id", ProjectController.getOne);
 // routes for projects
 router.get("/projects/participations", ParticipationController.getAll);
-router.get("/projects", ProjectController.getAll);
 router.get("/projects/:id", ProjectController.getOne);
 router.post("/users/:userId/projects", ProjectController.createOne);
 router.put("/users/:id/projects/:id", ProjectController.editOne);
