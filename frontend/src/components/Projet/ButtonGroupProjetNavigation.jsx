@@ -37,7 +37,7 @@ export default function ButtonGroupProjetNavigation() {
             bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
           }}
         >
-          Tâches
+          Outils
         </Tab>
         <Tab
           fontSize={{ base: "sm", sm: "md", md: "xl" }}
