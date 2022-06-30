@@ -1,17 +1,20 @@
-import { Flex, Box, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import ButtonGroupProjetNavigation from "../components/Projet/ButtonGroupProjetNavigation";
+import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 
 export default function Projet() {
   return (
     <Flex>
-      <Box bgColor="white" w="20%" minW="20%" h="100vh">
-        NAVBAR
-      </Box>
+      <Flex
+        minW={{ base: "100%", lg: "15%" }}
+        minH="20vh"
+        gap="20px"
+        flexDir="column"
+      >
+        <Sidebar />
+      </Flex>
       <Flex p="2rem" flexDir="column" w="80%" gap="4" h="100vh">
-        <Heading align="left" color="navy.700">
-          TITRE PROJET
-        </Heading>
         <Flex
           w="100%"
           p="20px"

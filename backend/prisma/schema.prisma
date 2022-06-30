@@ -67,16 +67,16 @@ model document {
 }
 
 model task {
-  id                Int       @id @default(autoincrement())
-  title             String    @db.VarChar(100)
-  description       String    @db.VarChar(100)
-  status            String    @db.VarChar(100)
-  startDate         DateTime?
-  dueDate           DateTime?
+  id                Int     @id @default(autoincrement())
+  title             String  @db.VarChar(100)
+  description       String  @db.VarChar(1000)
+  status            String  @db.VarChar(100)
+  startDate         String? @db.VarChar(100)
+  dueDate           String? @db.VarChar(100)
   userId            Int
   projectId         Int
-  fk_task_userId    user      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  fk_task_projectId project   @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_task_userId    user    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  fk_task_projectId project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model comments {
