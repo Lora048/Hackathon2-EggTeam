@@ -15,6 +15,20 @@ const getAll = async (req, res) => {
   }
 };
 
+const getAllForAProject = async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10);
+  try {
+    const participationList = await participation.getAllForAProject(projectId);
+    if (participationList.length === 0) {
+      return res.status(404).send("Aucun projet trouvé");
+    }
+    return res.status(200).json(participationList);
+  } catch (e) {
+    console.warn(e);
+    return res.sendStatus(500);
+  }
+};
+
 const getOnebyUserAndProject = async (req, res) => {
   const userId = parseInt(req.params.userId, 10);
   const projectId = parseInt(req.params.projectId, 10);
@@ -37,7 +51,6 @@ const getOnebyUserAndProject = async (req, res) => {
 const createOne = async (req, res) => {
   const userId = parseInt(req.params.userId, 10);
   const projectId = parseInt(req.params.projectId, 10);
-
   const existingUser = await user.getOne(userId);
   if (!existingUser) {
     return res.status(404).send("L'utilisateur n'existe pas");
@@ -99,4 +112,10 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { createOne, getAll, deleteOne, getOnebyUserAndProject };
+module.exports = {
+  createOne,
+  getAll,
+  deleteOne,
+  getOnebyUserAndProject,
+  getAllForAProject,
+};
