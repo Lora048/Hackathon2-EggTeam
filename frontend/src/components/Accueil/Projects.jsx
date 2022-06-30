@@ -10,7 +10,6 @@ import Card from "./Card";
 export default function Projects() {
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
-  const textColorSecondary = "gray.400";
   const cardShadow = useColorModeValue(
     "0px 18px 40px rgba(112, 144, 176, 0.12)",
     "unset"
@@ -22,36 +21,33 @@ export default function Projects() {
         fontWeight="bold"
         fontSize="2xl"
         mt="10px"
-        mb="4px"
+        mb="20px"
       >
-        All projects
+        Etat des projets
       </Text>
-      <Text color={textColorSecondary} fontSize="md" me="26px" mb="40px">
-        Here you can find more details about your projects. Keep you user
-        engaged by providing meaningful information.
-      </Text>
+
       <Project
         boxShadow={cardShadow}
         mb="20px"
         image={imageProject}
-        ranking="1"
+        number="4"
         link="#"
-        title="Technology behind the Blockchain"
+        title="A venir"
       />
       <Project
         boxShadow={cardShadow}
         mb="20px"
         image={imageProject}
-        ranking="2"
+        number="27"
         link="#"
-        title="Greatest way to a good Economy"
+        title="Terminés"
       />
       <Project
         boxShadow={cardShadow}
         image={imageProject}
-        ranking="3"
+        number="12"
         link="#"
-        title="Most essential tips for Burnout"
+        title="En cours"
       />
     </Card>
   );

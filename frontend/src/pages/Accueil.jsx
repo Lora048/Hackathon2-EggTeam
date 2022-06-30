@@ -51,7 +51,7 @@ export default function Accueil(props) {
               <Card px="0px">
                 <Projects />
               </Card>
-              <Card p="0px">
+              <Card p="0px" mt="20px">
                 <Flex
                   align={{ sm: "flex-start", lg: "center" }}
                   justify="space-between"
@@ -62,7 +62,7 @@ export default function Accueil(props) {
                   <Text color={textColor} fontSize="xl" fontWeight="600">
                     Projets chez Apside
                   </Text>
-                  <Button variant="action">See all</Button>
+                  <Button variant="action">Voir tout</Button>
                 </Flex>
               </Card>
             </Flex>

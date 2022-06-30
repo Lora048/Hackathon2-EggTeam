@@ -17,7 +17,7 @@ import { MdEdit } from "react-icons/md";
 import Card from "./Card";
 
 export default function Project(props) {
-  const { title, ranking, link, image, ...rest } = props;
+  const { title, number, link, image, ...rest } = props;
   // Chakra Color Mode
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
@@ -42,9 +42,9 @@ export default function Project(props) {
             fontSize="sm"
             me="4px"
           >
-            Project #{ranking} •{" "}
+            {number} projets •{" "}
             <Link fontWeight="500" color={brandColor} href={link} fontSize="sm">
-              See project details
+              Voir les projets
             </Link>
           </Text>
         </Box>

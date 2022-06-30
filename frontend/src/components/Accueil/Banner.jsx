@@ -32,7 +32,7 @@ export default function Banner() {
         fontWeight="700"
         lineHeight={{ base: "32px", md: "42px" }}
       >
-        Discover, collect, and sell extraordinary NFTs
+        Découvrez, créez, innovez !
       </Text>
       <Text
         fontSize="md"
@@ -49,8 +49,8 @@ export default function Banner() {
         mb="40px"
         lineHeight="28px"
       >
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
+        Entrez dans l'univers créatif d'Apside, découvrez les projets menés par
+        les équipes partout en France.
       </Text>
       <Flex align="center">
         <Button
@@ -65,12 +65,36 @@ export default function Banner() {
           px="27"
           me="38px"
         >
-          Discover now
+          Agence
         </Button>
-
-        <Text color="white" fontSize="sm" fontWeight="500">
-          Watch video
-        </Text>
+        <Button
+          bg="white"
+          color="black"
+          _hover={{ bg: "whiteAlpha.900" }}
+          _active={{ bg: "white" }}
+          _focus={{ bg: "white" }}
+          fontWeight="500"
+          fontSize="14px"
+          py="20px"
+          px="27"
+          me="38px"
+        >
+          Meilleurs votes
+        </Button>
+        <Button
+          bg="white"
+          color="black"
+          _hover={{ bg: "whiteAlpha.900" }}
+          _active={{ bg: "white" }}
+          _focus={{ bg: "white" }}
+          fontWeight="500"
+          fontSize="14px"
+          py="20px"
+          px="27"
+          me="38px"
+        >
+          Compétence
+        </Button>
       </Flex>
     </Flex>
   );
