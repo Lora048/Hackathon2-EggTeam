@@ -26,7 +26,7 @@ export default function Sidebar(props) {
       <Box
         bg={sidebarBg}
         transition={variantChange}
-        w="300px"
+        w="15vw"
         h="100vh"
         m={sidebarMargins}
         minH="100%"
