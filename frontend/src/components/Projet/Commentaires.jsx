@@ -1,47 +1,77 @@
-import { Flex, Text } from "@chakra-ui/react";
-import { ReactTinyLink } from "react-tiny-link";
+import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import Card from "../Accueil/Card";
 
 export default function Commentaires() {
-  const [contents, setContents] = useState([]);
-  const [replies, setReplies] = useState([]);
+  const [comments, setComments] = useState([]);
+  const { projectId } = useParams();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/users/1/projects/1/comments")
-      .then((res) => setContents(res.data));
+      .get(`http://localhost:5001/api/users/1/projects/${projectId}/comments`)
+      .then((res) => setComments(res.data));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:5001/api/users/1/projects/1/comments/${contents.id}/reply`
-      )
-      .then((res) => setReplies(res.data));
-  }, []);
+  const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
+  const textColorSecondary = "gray.500";
+
+  const cardShadow = useColorModeValue(
+    "0px 18px 40px rgba(112, 144, 176, 0.35)",
+    "unset"
+  );
 
   return (
     <Flex>
       <Flex p="2rem" flexDir="column" w="100%" gap="4">
-        <Text fontSize="2xl" align="left">
-          Backlog du projet
+        <Text color={textColorPrimary} fontSize="2xl" align="left" mb="2rem">
+          Commentaires
         </Text>
-        <ReactTinyLink
-          cardSize="large"
-          showGraphic
-          maxLine={2}
-          minLine={1}
-          url="https://www.figma.com/file/KTFPuhOkABSq8lPWepVlqh/Hackathon2-x-EggTeam?node-id=34%3A6"
-        />
-        {contents &&
-          contents.map(
-            (content) =>
-              <Flex key={content.id}>{content.content}</Flex> &&
-              replies.map((reply) => (
-                <Flex key={reply.id}>{reply.content}</Flex>
-              ))
-          )}
+
+        {comments &&
+          comments
+            .filter(
+              (comment) => comment.fk_comments_userId.projectId === projectId
+            )
+            .map((comment) => (
+              <Flex>
+                <Card
+                  display="flex"
+                  direction="row"
+                  mb="5rem"
+                  color={textColorSecondary}
+                  boxShadow={cardShadow}
+                  w="50%"
+                >
+                  {" "}
+                  <Flex color="gray.700" mb="0.5rem">
+                    {comment.fk_comments_userId.picture}
+                    {comment.fk_comments_userId.firstname}{" "}
+                    {comment.fk_comments_userId.lastname}
+                  </Flex>
+                  <Flex>{comment.content}</Flex>
+                </Card>
+
+                {comment.comments_reply &&
+                  comment.comments_reply.map((rep) => (
+                    <Flex w="50%">
+                      <Card
+                        color={textColorSecondary}
+                        boxShadow={cardShadow}
+                        alignItems="end"
+                        mt="5rem"
+                        key={rep.id}
+                      >
+                        <Flex color="gray.700" mb="0.5rem">
+                          Marcel Durand
+                        </Flex>
+                        <Flex>{rep.content}</Flex>
+                      </Card>
+                    </Flex>
+                  ))}
+              </Flex>
+            ))}
       </Flex>
     </Flex>
   );
