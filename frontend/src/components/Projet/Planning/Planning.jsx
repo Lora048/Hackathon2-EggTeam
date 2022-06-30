@@ -12,13 +12,20 @@ export default function Contributeurs() {
       <Text fontSize="2xl" align="left">
         Planning du projet
       </Text>
-      <Box style={{ height: 700 }}>
+      <Box style={{ height: 500 }} m="1rem">
         <Calendar
           defaultView="month"
           localizer={localizer}
           events={events}
           step={60}
           defaultDate={new Date()}
+          eventPropGetter={(event, start, end, isSelected) => ({
+            event,
+            start,
+            end,
+            isSelected,
+            style: { backgroundColor: "#11047A" },
+          })}
         />
       </Box>
     </Flex>

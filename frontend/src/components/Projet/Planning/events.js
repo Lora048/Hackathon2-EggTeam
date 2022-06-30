@@ -4,6 +4,7 @@ export default [
     allDay: true,
     start: new Date(2022, 6, 0),
     end: new Date(2022, 6, 1),
+    color: "red",
   },
   {
     title: "Long Event",
