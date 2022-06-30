@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 import Banner from "../components/Profil/Banner";
+import Projects from "../components/Profil/Projects";
 import GeneralInfos from "../components/Profil/GeneralInfos";
 
 export default function Profil() {
@@ -16,9 +17,12 @@ export default function Profil() {
       >
         <Sidebar user={userId} />
       </Flex>
-      <Flex flexDir="column" w="100%">
+      <Flex flexDir="column" w="100%" gap="3">
         <Banner />
-        <GeneralInfos />
+        <Flex justifyContent="space-around">
+          <Projects />
+          <GeneralInfos />
+        </Flex>
       </Flex>
     </Flex>
   );

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import imageProjet from "../../assets/Nft3.png";
 
-export default function GeneralInfos() {
+export default function Projects() {
   const [projets, setProjets] = useState([]);
 
   const { userId } = useParams();
