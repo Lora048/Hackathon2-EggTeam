@@ -53,7 +53,7 @@ export default function Contributeurs() {
         <Thead>
           <Tr>
             <Th pe="10px" borderColor="transparent">
-              <Text fontSize="md" color="gray.400">
+              <Text fontSize="md" color="gray.400" pl="3rem">
                 Nom Prénom
               </Text>
             </Th>
