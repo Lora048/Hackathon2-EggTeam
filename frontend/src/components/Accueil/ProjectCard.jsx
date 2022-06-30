@@ -11,6 +11,7 @@ import {
   Avatar,
   AvatarGroup,
   useColorModeValue,
+  Tag,
 } from "@chakra-ui/react";
 // Custom components
 // Assets
@@ -27,7 +28,9 @@ export default function ProjectCard({ project }) {
   const [like, setLike] = useState(false);
   const textColor = useColorModeValue("navy.700", "white");
   const textColorBid = useColorModeValue("brand.500", "white");
+
   // const textColorBid = useColorModeValue("brand.500", "white");
+
   const bidders = [
     Avatar1,
     Avatar2,
@@ -74,7 +77,12 @@ export default function ProjectCard({ project }) {
             />
           </Button>
         </Box>
-        <Flex flexDirection="column" justify="space-between" h="100%">
+        <Flex
+          flexDirection="column"
+          justify="space-between"
+          h="100%"
+          alignItems="center"
+        >
           <Flex
             justify="space-between"
             direction={{
@@ -86,7 +94,7 @@ export default function ProjectCard({ project }) {
             }}
             mb="auto"
           >
-            <Flex direction="column">
+            <Flex direction="column" alignItems="center">
               <Text
                 color={textColor}
                 fontSize={{
@@ -99,7 +107,7 @@ export default function ProjectCard({ project }) {
                 }}
                 mb="5px"
                 fontWeight="bold"
-                me="14px"
+                textAlign="center"
               >
                 {project.title}
               </Text>
@@ -109,7 +117,6 @@ export default function ProjectCard({ project }) {
                   base: "sm",
                 }}
                 fontWeight="400"
-                me="14px"
               >
                 {project.status}
               </Text>
@@ -144,6 +151,15 @@ export default function ProjectCard({ project }) {
                 <Avatar key={key} src={avt} />
               ))}
             </AvatarGroup>
+            <Tag
+              size="md"
+              variant="subtle"
+              colorScheme="purple"
+              marginLeft={{ base: 0, "2xl": "50px" }}
+            >
+              JavaScript
+            </Tag>
+
             {/* <Text fontWeight="700" fontSize="sm" color={textColorBid}>
               Vote: {project.vote}
             </Text> */}

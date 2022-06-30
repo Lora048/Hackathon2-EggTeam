@@ -16,8 +16,10 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
 import Banner from "../components/Accueil/Banner";
 import ProjectCard from "../components/Accueil/ProjectCard";
@@ -36,27 +38,43 @@ export default function Accueil(props) {
   const [inputUser, setInputUser] = useState("");
   // const [project, setProject] = useState({});
   const [allProjects, setAllProjects] = useState([]);
-  // const [setTitle] = useState("");
-  // const [setDescription] = useState("");
-  // const [setDateCreated] = useState("");
-  // const [setCover] = useState("");
-  // const [setStatus] = useState([]);
+  const [choosenValue, setChoosenValue] = useState("");
+
   // Chakra Color Mode
   const searchIconColor = useColorModeValue("gray.700", "white");
   const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
   const inputText = useColorModeValue("gray.700", "gray.100");
 
+  const projectListFilteredByAgency = () => {
+    return allProjects.filter((project) =>
+      project.fk_project_userId.agency.includes(choosenValue)
+    );
+  };
+
+  // const projectListFilteredBySkills = () => {
+  //   return allProjects.filter((project) =>
+  //     project.fk_project_userId.hardSkills.includes(choosenValue)
+  //   );
+  // };
+
+  const handleChange = (e) => {
+    setChoosenValue(e.target.value);
+  };
+
   const handleInput = (e) => {
-    const input = e.target.value.toLowerCase();
+    const input = e.target.value;
     setInputUser(input);
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/api/projects`).then((response) => {
-      // setProject(response.data[0]);
-      setAllProjects(response.data);
-      // setStatus(response.data[0].status);
-    });
+    axios
+      .get(`http://localhost:5001/api/projects`)
+      .then((response) => {
+        setAllProjects(response.data);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
   }, []);
 
   return (
@@ -125,51 +143,103 @@ export default function Accueil(props) {
                   >
                     Projets
                   </Text>
-                  <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
-                    <InputLeftElement
-                      children={
-                        <IconButton
-                          bg="inherit"
-                          borderRadius="inherit"
-                          _hover="none"
-                          _active={{
-                            bg: "inherit",
-                            transform: "none",
-                            borderColor: "transparent",
-                          }}
-                          _focus={{
-                            boxShadow: "none",
-                          }}
-                          icon={
-                            <SearchIcon
-                              color={searchIconColor}
-                              w="15px"
-                              h="15px"
-                            />
-                          }
-                        />
-                      }
-                    />
-                    <Input
-                      variant="search"
-                      fontSize="sm"
-                      bg={background ? background : inputBg}
-                      color={inputText}
+
+                  <Flex align="center">
+                    <Button
+                      variant="lightBrand"
                       fontWeight="500"
-                      _placeholder={{ color: "gray.400", fontSize: "14px" }}
-                      borderRadius={borderRadius ? borderRadius : "30px"}
-                      placeholder={placeholder ? placeholder : "Search..."}
-                      onChange={handleInput}
-                      value={inputUser}
-                    />
-                  </InputGroup>
+                      fontSize="14px"
+                      py="20px"
+                      px="27"
+                      me="38px"
+                    >
+                      Meilleurs votes
+                    </Button>
+                    <Select
+                      placeholder="Agence"
+                      variant="filled"
+                      width="25%"
+                      value={choosenValue}
+                      onChange={handleChange}
+                      marginRight="35px"
+                    >
+                      <option value="Paris">Paris</option>
+                      <option value="Marseille">Marseille</option>
+                      <option value="Bordeaux">Bordeaux</option>
+                      <option value="Toulouse">Toulouse</option>
+                      <option value="Bayonne">Bayonne</option>
+                    </Select>
+
+                    <Select
+                      placeholder="Compétence"
+                      variant="filled"
+                      width="25%"
+                      value={choosenValue}
+                      onChange={handleChange}
+                      marginRight="35px"
+                    >
+                      <option value="Javascript">Javascript</option>
+                      <option value="Ecologie">Ecologie</option>
+                      <option value="Ressources humaines">
+                        Ressources humaines
+                      </option>
+                      <option value="Intelligence collective">
+                        Intelligence collective
+                      </option>
+                      <option value="Cohésion">Cohésion</option>
+                    </Select>
+                    <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
+                      <InputLeftElement
+                        children={
+                          <IconButton
+                            bg="inherit"
+                            borderRadius="inherit"
+                            _hover="none"
+                            _active={{
+                              bg: "inherit",
+                              transform: "none",
+                              borderColor: "transparent",
+                            }}
+                            _focus={{
+                              boxShadow: "none",
+                            }}
+                            icon={
+                              <SearchIcon
+                                color={searchIconColor}
+                                w="15px"
+                                h="15px"
+                              />
+                            }
+                          />
+                        }
+                      />
+                      <Input
+                        variant="search"
+                        fontSize="sm"
+                        bg={background ? background : inputBg}
+                        color={inputText}
+                        fontWeight="500"
+                        _placeholder={{ color: "gray.400", fontSize: "14px" }}
+                        borderRadius={borderRadius ? borderRadius : "30px"}
+                        placeholder="Rechercher..."
+                        onChange={handleInput}
+                        value={inputUser}
+                      />
+                    </InputGroup>
+                  </Flex>
                 </Flex>
                 <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                   {allProjects
                     .filter((data) => data.title.includes(inputUser))
-                    .map((datas) => (
-                      <ProjectCard project={datas} />
+
+                    .map((datas) => <ProjectCard project={datas} />) &&
+                    projectListFilteredByAgency().map((project) => (
+                      <ProjectCard project={project} />
                     ))}
+                  {/*  &&
+                    projectListFilteredBySkills().map((project) => (
+                   <ProjectCard project={project} />
+                   ))} */}
                 </SimpleGrid>
               </Flex>
             </Flex>
