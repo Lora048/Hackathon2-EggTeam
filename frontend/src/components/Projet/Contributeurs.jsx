@@ -1,9 +1,6 @@
 import {
   Avatar,
-  Box,
-  Button,
   Flex,
-  Progress,
   Table,
   Tbody,
   Td,
@@ -13,7 +10,24 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
 export default function Contributeurs() {
+  const [contributors, setContributors] = useState();
+
+  const { projectId } = useParams();
+
+  const getAllCollaborators = () => {
+    axios
+      .get(`http://localhost:5001/api/projects/${projectId}/participations/`)
+      .then((response) => {
+        setContributors(response.data);
+      });
+  };
+
+  useEffect(() => getAllCollaborators(), []);
   return (
     <Flex
       direction="column"
@@ -32,145 +46,67 @@ export default function Contributeurs() {
         <Text fontSize="xl" fontWeight="600">
           Top Creators
         </Text>
-        <Button variant="action">See all</Button>
       </Flex>
       <Table variant="simple" color="gray.500">
         <Thead>
           <Tr>
             <Th pe="10px" borderColor="transparent">
               <Text fontSize={{ sm: "10px", lg: "12px" }} color="gray.400">
-                Name
+                Contributeurs
               </Text>
             </Th>
             <Th pe="10px" borderColor="transparent">
               <Text fontSize={{ sm: "10px", lg: "12px" }} color="gray.400">
-                ARTWORKS
+                Job
               </Text>
             </Th>
             <Th pe="10px" borderColor="transparent">
               <Text fontSize={{ sm: "10px", lg: "12px" }} color="gray.400">
-                RATING
+                Agence
               </Text>
             </Th>
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>
-              <Flex align="center">
-                <Avatar
-                  src="https://secure.gravatar.com/avatar/c308ee24184a32cdf10650eb7e311157?s=125&d=mm&r=G"
-                  w="30px"
-                  h="30px"
-                  me="8px"
-                />
-                <Text fontSize="sm" fontWeight="600">
-                  @maddison_c21
-                </Text>
-              </Flex>
-            </Td>
-            <Td>
-              <Text fontSize="sm" fontWeight="500">
-                9821
-              </Text>
-            </Td>
-            <Td>
-              <Box>
-                <Progress
-                  variant="table"
-                  colorScheme="brandScheme"
-                  value={80}
-                />
-              </Box>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex align="center">
-                <Avatar
-                  src="https://secure.gravatar.com/avatar/c308ee24184a32cdf10650eb7e311157?s=125&d=mm&r=G"
-                  w="30px"
-                  h="30px"
-                  me="8px"
-                />
-                <Text fontSize="sm" fontWeight="600">
-                  @maddison_c21
-                </Text>
-              </Flex>
-            </Td>
-            <Td>
-              <Text fontSize="sm" fontWeight="500">
-                9821
-              </Text>
-            </Td>
-            <Td>
-              <Box>
-                <Progress
-                  variant="table"
-                  colorScheme="brandScheme"
-                  value={50}
-                />
-              </Box>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex align="center">
-                <Avatar
-                  src="https://secure.gravatar.com/avatar/c308ee24184a32cdf10650eb7e311157?s=125&d=mm&r=G"
-                  w="30px"
-                  h="30px"
-                  me="8px"
-                />
-                <Text fontSize="sm" fontWeight="600">
-                  @maddison_c21
-                </Text>
-              </Flex>
-            </Td>
-            <Td>
-              <Text fontSize="sm" fontWeight="500">
-                9821
-              </Text>
-            </Td>
-            <Td>
-              <Box>
-                <Progress
-                  variant="table"
-                  colorScheme="brandScheme"
-                  value={20}
-                />
-              </Box>
-            </Td>
-          </Tr>
-          <Tr>
-            <Td>
-              <Flex align="center">
-                <Avatar
-                  src="https://secure.gravatar.com/avatar/c308ee24184a32cdf10650eb7e311157?s=125&d=mm&r=G"
-                  w="30px"
-                  h="30px"
-                  me="8px"
-                />
-                <Text fontSize="sm" fontWeight="600">
-                  @maddison_c21
-                </Text>
-              </Flex>
-            </Td>
-            <Td>
-              <Text fontSize="sm" fontWeight="500">
-                9821
-              </Text>
-            </Td>
-            <Td>
-              <Box>
-                <Progress
-                  variant="table"
-                  colorScheme="brandScheme"
-                  value={70}
-                />
-              </Box>
-            </Td>
-          </Tr>
+          {contributors &&
+            contributors.map((contributor) => (
+              <Tr key={contributor.fk_participation_user_project_userId.id}>
+                <Td>
+                  <Flex align="left" justifyContent="space-around" w="50%">
+                    <Avatar
+                      src={
+                        contributor.fk_participation_user_project_userId.picture
+                      }
+                      w="30px"
+                      h="30px"
+                      me="8px"
+                    />
+                    <Text fontSize="sm" fontWeight="600">
+                      {
+                        contributor.fk_participation_user_project_userId
+                          .firstname
+                      }
+                    </Text>
+                    <Text>
+                      {
+                        contributor.fk_participation_user_project_userId
+                          .lastname
+                      }
+                    </Text>
+                  </Flex>
+                </Td>
+                <Td>
+                  <Text fontSize="sm" fontWeight="500">
+                    {contributor.fk_participation_user_project_userId.jobPost}
+                  </Text>
+                </Td>
+                <Td>
+                  <Text fontSize="sm" fontWeight="500">
+                    {contributor.fk_participation_user_project_userId.agency}
+                  </Text>
+                </Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </Flex>
