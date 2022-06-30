@@ -119,13 +119,7 @@ router.delete(
 // Affiche tout les participants d'un projet
 router.get(
   "/projects/:projectId/participations/",
-  ParticipationController.getAll
-);
-
-// Ajoute 1 participant (userId) au projet
-router.post(
-  "/projects/:projectId/users/:userId/participations",
-  ParticipationController.createOneParticipator
+  ParticipationController.getAllForAProject
 );
 
 // routes for tasks

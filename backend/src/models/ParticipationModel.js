@@ -21,6 +21,25 @@ const getAll = async () => {
             firstname: true,
             lastname: true,
             picture: true,
+          },
+        },
+      },
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+const getAllForAProject = async (projectId) => {
+  try {
+    return await prisma.participation_user_project.findMany({
+      where: { projectId },
+      include: {
+        fk_participation_user_project_userId: {
+          select: {
+            firstname: true,
+            lastname: true,
+            picture: true,
             jobPost: true,
             agency: true,
           },
@@ -52,20 +71,10 @@ const deleteOne = async (id) => {
   }
 };
 
-const createOneParticipator = async (participation) => {
-  try {
-    return await prisma.participation_user_project.create({
-      data: { ...participation },
-    });
-  } finally {
-    await prisma.$disconnect();
-  }
-};
-
 module.exports = {
   createOne,
   getAll,
   deleteOne,
   getOnebyUserAndProject,
-  createOneParticipator,
+  getAllForAProject,
 };
