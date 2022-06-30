@@ -31,6 +31,15 @@ export default function ProjectCard({ project }) {
 
   // const textColorBid = useColorModeValue("brand.500", "white");
 
+  const colors = {
+    Typescript: "brand.400",
+    Github: "blue.200",
+    Javascript: "brand.300",
+    NodeJS: "navy.500",
+    Java: "gray.300",
+    Express: "gray.500",
+    Docker: "brand.600",
+  };
   const bidders = [
     Avatar1,
     Avatar2,
@@ -85,6 +94,7 @@ export default function ProjectCard({ project }) {
         >
           <Flex
             justify="space-between"
+            gap="10px"
             direction={{
               base: "row",
               md: "column",
@@ -108,6 +118,7 @@ export default function ProjectCard({ project }) {
                 mb="5px"
                 fontWeight="bold"
                 textAlign="center"
+                noOfLines={1}
               >
                 {project.title}
               </Text>
@@ -132,37 +143,29 @@ export default function ProjectCard({ project }) {
               xl: "column",
               "2xl": "row",
             }}
-            mt="25px"
+            my="10px"
           >
-            <AvatarGroup
-              max={3}
-              color={textColorBid}
-              size="sm"
-              mt={{
-                base: "0px",
-                md: "10px",
-                lg: "0px",
-                xl: "10px",
-                "2xl": "0px",
-              }}
-              fontSize="12px"
-            >
+            <AvatarGroup max={3} color={textColorBid} size="sm" fontSize="12px">
               {bidders.map((avt, key) => (
                 <Avatar key={key} src={avt} />
               ))}
             </AvatarGroup>
-            <Tag
-              size="md"
-              variant="subtle"
-              colorScheme="purple"
-              marginLeft={{ base: 0, "2xl": "50px" }}
-            >
-              Javascript
-            </Tag>
 
             {/* <Text fontWeight="700" fontSize="sm" color={textColorBid}>
               Vote: {project.vote}
             </Text> */}
+          </Flex>
+          <Flex gap="5px">
+            {project.fk_project_userId.hardSkills.map((skill) => (
+              <Tag
+                size="sm"
+                variant="subtle"
+                bgColor={colors[skill]}
+                color="white"
+              >
+                {skill}
+              </Tag>
+            ))}
           </Flex>
         </Flex>
       </Flex>
