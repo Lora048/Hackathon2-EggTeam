@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { CardComponent } from "../styles/card";
-// import { buttonStyles } from "./components/button";
+// import { buttonStyles } from "../styles/button";
 // import { badgeStyles } from "./components/badge";
 // import { inputStyles } from "./components/input";
 import { progressStyles } from "./components/progress";
@@ -15,7 +15,7 @@ export default extendTheme(
   { breakpoints }, // Breakpoints
   globalStyles,
   //   badgeStyles, // badge styles
-  //   buttonStyles, // button styles
+  // buttonStyles, // button styles
   //   linkStyles, // link styles
   progressStyles, // progress styles
   //   sliderStyles, // slider styles

@@ -1,4 +1,4 @@
-import { Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Text, useColorModeValue, Button } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,12 @@ export default function Commentaires() {
       .then((res) => setComments(res.data));
   }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .post(`http://localhost:5001/api/users/1/projects/${projectId}/comments`)
+  //     .then((res) => setPostComment(res.data));
+  // }, []);
+
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.500";
 
@@ -25,10 +31,19 @@ export default function Commentaires() {
   return (
     <Flex>
       <Flex p="2rem" flexDir="column" w="100%" gap="4">
-        <Text color={textColorPrimary} fontSize="2xl" align="left" mb="2rem">
-          Commentaires
-        </Text>
-
+        <Flex justify="space-between">
+          <Text color={textColorPrimary} fontSize="2xl" align="left" mb="2rem">
+            Commentaires
+          </Text>
+          <Button
+            color="white"
+            bgGradient="linear-gradient(135deg, #868CFF 0%, #4318FF 100%)"
+            w="30%"
+            type="button"
+          >
+            Ajouter un commentaire
+          </Button>
+        </Flex>
         {comments &&
           comments
             .filter(
@@ -43,6 +58,7 @@ export default function Commentaires() {
                   color={textColorSecondary}
                   boxShadow={cardShadow}
                   w="50%"
+                  key={comment.id}
                 >
                   {" "}
                   <Flex color="gray.700" mb="0.5rem">
