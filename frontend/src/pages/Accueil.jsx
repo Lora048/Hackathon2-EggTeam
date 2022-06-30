@@ -51,11 +51,11 @@ export default function Accueil(props) {
     );
   };
 
-  // const projectListFilteredBySkills = () => {
-  //   return allProjects.filter((project) =>
-  //     project.fk_project_userId.hardSkills.includes(choosenValue)
-  //   );
-  // };
+  const projectListFilteredBySkills = () => {
+    return allProjects.filter((project) =>
+      project.fk_project_userId.hardSkills.includes(choosenValue)
+    );
+  };
 
   const handleChange = (e) => {
     setChoosenValue(e.target.value);
@@ -237,11 +237,10 @@ export default function Accueil(props) {
                     .map((datas) => <ProjectCard project={datas} />) &&
                     projectListFilteredByAgency().map((project) => (
                       <ProjectCard project={project} />
-                    ))}
-                  {/*  &&
+                    )) &&
                     projectListFilteredBySkills().map((project) => (
-                   <ProjectCard project={project} />
-                   ))} */}
+                      <ProjectCard project={project} />
+                    ))}
                 </SimpleGrid>
               </Flex>
             </Flex>
