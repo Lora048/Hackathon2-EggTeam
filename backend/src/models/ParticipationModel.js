@@ -30,6 +30,27 @@ const getAll = async () => {
   }
 };
 
+const getAllForAProject = async (projectId) => {
+  try {
+    return await prisma.participation_user_project.findMany({
+      where: { projectId },
+      include: {
+        fk_participation_user_project_userId: {
+          select: {
+            firstname: true,
+            lastname: true,
+            picture: true,
+            jobPost: true,
+            agency: true,
+          },
+        },
+      },
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
 const getOnebyUserAndProject = async (userId, projectId) => {
   try {
     return await prisma.participation_user_project.findMany({
@@ -50,4 +71,10 @@ const deleteOne = async (id) => {
   }
 };
 
-module.exports = { createOne, getAll, deleteOne, getOnebyUserAndProject };
+module.exports = {
+  createOne,
+  getAll,
+  deleteOne,
+  getOnebyUserAndProject,
+  getAllForAProject,
+};
