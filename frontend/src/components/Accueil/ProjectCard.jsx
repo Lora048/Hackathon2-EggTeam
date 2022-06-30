@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/react";
 // Custom components
 // Assets
+// import axios from "axios";
 import React, { useState } from "react";
+// import { useParams } from "react-router-dom";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import Card from "./Card";
 import couverture from "../../assets/Nft3.png";
@@ -28,6 +30,11 @@ export default function ProjectCard({ project }) {
   const [like, setLike] = useState(false);
   const textColor = useColorModeValue("navy.700", "white");
   const textColorBid = useColorModeValue("brand.500", "white");
+
+  // const [type, setType] = useState("");
+  // const handleType = () => {
+  //   like ? setType("positif") : null;
+  // };
 
   // const textColorBid = useColorModeValue("brand.500", "white");
 
@@ -66,6 +73,7 @@ export default function ProjectCard({ project }) {
             h="36px"
             onClick={() => {
               setLike(!like);
+              // handleType();
             }}
           >
             <Icon

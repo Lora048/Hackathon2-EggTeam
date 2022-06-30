@@ -75,8 +75,6 @@ export default function Accueil(props) {
       });
   }, []);
 
-  // const fakeVote = () => [4, 10, 36, 10, 1];
-
   return (
     <Box h="100vh">
       <Navbar onOpen={onOpen} fixed={fixed} {...rest} user={userId} />
