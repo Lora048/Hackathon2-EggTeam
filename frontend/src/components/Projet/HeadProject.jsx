@@ -1,6 +1,6 @@
 import { Flex, Text, Button, useToast } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function HeadProject() {
@@ -8,6 +8,18 @@ export default function HeadProject() {
   const toast = useToast();
 
   const [isCollaborator, setIsCollaborator] = useState(false);
+  const [projet, setProjet] = useState([]);
+
+  const getProject = () => {
+    axios
+      .get(`http://localhost:5001/api/projects/${projectId}`)
+      .then((response) => {
+        setProjet(response.data.currentProject);
+      });
+  };
+
+  useEffect(() => getProject(), []);
+
   const rejoinProject = () => {
     axios
       .post(
@@ -52,15 +64,31 @@ export default function HeadProject() {
   };
   return (
     <Flex justifyContent="space-between" pl="1rem">
-      <Text fontSize="34px" fontWeight="bold" color="navy.700">
-        TITRE PROJET
+      <Text
+        fontSize="34px"
+        fontWeight="bold"
+        color="navy.700"
+        maxW="70%"
+        align="left"
+      >
+        {projet.title}
       </Text>
       {isCollaborator ? (
-        <Button alignSelf="center" mr="2rem" onClick={rejoinProject}>
+        <Button
+          variant="darkBrand"
+          alignSelf="center"
+          mr="2rem"
+          onClick={rejoinProject}
+        >
           Rejoindre le projet
         </Button>
       ) : (
-        <Button alignSelf="center" mr="2rem" onClick={leaveProject}>
+        <Button
+          variant="darkBrand"
+          alignSelf="center"
+          mr="2rem"
+          onClick={leaveProject}
+        >
           Quittez le projet
         </Button>
       )}

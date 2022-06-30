@@ -81,7 +81,7 @@ export default function Contributeurs() {
                     alignItems="center"
                   >
                     {parseInt(userId, 10) === contributor.userId ? (
-                      <StarIcon w={7} h={7} color="navy.500" mr="0.5rem" />
+                      <StarIcon w={7} h={7} color="navy.700" mr="0.5rem" />
                     ) : (
                       <StarIcon w={7} h={7} color="white" mr="0.5rem" />
                     )}
