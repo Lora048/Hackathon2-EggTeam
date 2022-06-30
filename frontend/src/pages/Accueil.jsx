@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-children-prop */
@@ -42,27 +44,19 @@ export default function Accueil(props) {
   const [inputUser, setInputUser] = useState("");
   // const [project, setProject] = useState({});
   const [allProjects, setAllProjects] = useState([]);
-  const [choosenValue, setChoosenValue] = useState("");
+  const [choosenValueAgency, setChoosenValueAgency] = useState("");
+  const [choosenValueSkills, setChoosenValueSkills] = useState("");
 
   // Chakra Color Mode
   const searchIconColor = useColorModeValue("gray.700", "white");
   const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
   const inputText = useColorModeValue("gray.700", "gray.100");
 
-  const projectListFilteredByAgency = () => {
-    return allProjects.filter((project) =>
-      project.fk_project_userId.agency.includes(choosenValue)
-    );
+  const handleChangeAgency = (e) => {
+    setChoosenValueAgency(e.target.value);
   };
-
-  // const projectListFilteredBySkills = () => {
-  //   return allProjects.filter((project) =>
-  //     project.fk_project_userId.hardSkills.includes(choosenValue)
-  //   );
-  // };
-
-  const handleChange = (e) => {
-    setChoosenValue(e.target.value);
+  const handleChangeSkills = (e) => {
+    setChoosenValueSkills(e.target.value);
   };
 
   const handleInput = (e) => {
@@ -80,6 +74,8 @@ export default function Accueil(props) {
         console.warn(error);
       });
   }, []);
+
+  // const fakeVote = () => [4, 10, 36, 10, 1];
 
   return (
     <Box h="100vh">
@@ -107,20 +103,6 @@ export default function Accueil(props) {
             >
               <Card px="0px">
                 <Projects />
-              </Card>
-              <Card p="0px" mt="20px">
-                <Flex
-                  align={{ sm: "flex-start", lg: "center" }}
-                  justify="space-between"
-                  w="100%"
-                  px="22px"
-                  py="18px"
-                >
-                  <Text color={textColor} fontSize="xl" fontWeight="600">
-                    Projets chez Apside
-                  </Text>
-                  <Button variant="action">Voir tout</Button>
-                </Flex>
               </Card>
             </Flex>
             <Flex
@@ -163,14 +145,14 @@ export default function Accueil(props) {
                       placeholder="Agence"
                       variant="filled"
                       width="25%"
-                      value={choosenValue}
-                      onChange={handleChange}
+                      value={choosenValueAgency}
+                      onChange={handleChangeAgency}
                       marginRight="35px"
                     >
                       <option value="Paris">Paris</option>
-                      <option value="Marseille">Marseille</option>
+                      <option value="Tours">Tours</option>
+                      <option value="Lyon">Lyon</option>
                       <option value="Bordeaux">Bordeaux</option>
-                      <option value="Toulouse">Toulouse</option>
                       <option value="Bayonne">Bayonne</option>
                     </Select>
 
@@ -178,19 +160,26 @@ export default function Accueil(props) {
                       placeholder="Compétence"
                       variant="filled"
                       width="25%"
-                      value={choosenValue}
-                      onChange={handleChange}
+                      value={choosenValueSkills}
+                      onChange={handleChangeSkills}
                       marginRight="35px"
                     >
                       <option value="Javascript">Javascript</option>
-                      <option value="Ecologie">Ecologie</option>
-                      <option value="Ressources humaines">
-                        Ressources humaines
-                      </option>
-                      <option value="Intelligence collective">
-                        Intelligence collective
-                      </option>
-                      <option value="Cohésion">Cohésion</option>
+                      <option value="TypeScript">TypeScript</option>
+                      <option value="Docker">Docker</option>
+                      <option value="Github">Github</option>
+                      <option value="Angular">Angular</option>
+                      <option value="React">React</option>
+                      <option value="VueJS">VueJS</option>
+                      <option value="Figma">Figma</option>
+                      <option value="Suite Adobe">Suite Adobe</option>
+                      <option value="NodeJS">NodeJS</option>
+                      <option value="Express">Express</option>
+                      <option value="Java">Java</option>
+                      <option value="C++">C++</option>
+                      <option value="React Native">React Native</option>
+                      <option value="flutter">flutter</option>
+                      <option value="Dart">Dart</option>
                     </Select>
                     <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
                       <InputLeftElement
@@ -234,16 +223,55 @@ export default function Accueil(props) {
                 </Flex>
                 <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
                   {allProjects
-                    .filter((data) => data.title.includes(inputUser))
-
-                    .map((datas) => <ProjectCard project={datas} />) &&
-                    projectListFilteredByAgency().map((project) => (
+                    .filter((data) => {
+                      if (
+                        !inputUser &&
+                        !choosenValueAgency &&
+                        !choosenValueSkills
+                      ) {
+                        return [data];
+                      }
+                      if (inputUser) {
+                        return data.title.includes(inputUser);
+                      }
+                      if (choosenValueAgency) {
+                        return data.fk_project_userId.agency.includes(
+                          choosenValueAgency
+                        );
+                      }
+                      if (choosenValueAgency && inputUser) {
+                        return (
+                          data.fk_project_userId.agency.includes(
+                            choosenValueAgency
+                          ) && data.title.includes(inputUser)
+                        );
+                      }
+                      if (choosenValueSkills) {
+                        return data.fk_project_userId.hardSkills.includes(
+                          choosenValueSkills
+                        );
+                      }
+                      if (choosenValueSkills && inputUser) {
+                        return (
+                          data.fk_project_userId.hardSkills.includes(
+                            choosenValueSkills
+                          ) && data.title.includes(inputUser)
+                        );
+                      }
+                      if (choosenValueSkills && inputUser && choosenValueAgency)
+                        return (
+                          data.fk_project_userId.agency.includes(
+                            choosenValueAgency
+                          ) &&
+                          data.fk_project_userId.hardSkills.includes(
+                            choosenValueAgency
+                          ) &&
+                          data.title.includes(inputUser)
+                        );
+                    })
+                    .map((project) => (
                       <ProjectCard project={project} />
                     ))}
-                  {/*  &&
-                    projectListFilteredBySkills().map((project) => (
-                   <ProjectCard project={project} />
-                   ))} */}
                 </SimpleGrid>
               </Flex>
             </Flex>
