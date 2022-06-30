@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 // Chakra imports
 import {
@@ -7,6 +8,8 @@ import {
   Icon,
   Image,
   Text,
+  Avatar,
+  AvatarGroup,
   useColorModeValue,
 } from "@chakra-ui/react";
 // Custom components
@@ -14,19 +17,34 @@ import {
 import React, { useState } from "react";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import Card from "./Card";
+import couverture from "../../assets/Nft3.png";
+import Avatar1 from "../../assets/avatar1.png";
+import Avatar2 from "../../assets/avatar2.png";
+import Avatar3 from "../../assets/avatar3.png";
+import Avatar4 from "../../assets/avatar4.png";
 
-export default function ProjectCard(props) {
+export default function ProjectCard({ project }) {
   const [like, setLike] = useState(false);
   const textColor = useColorModeValue("navy.700", "white");
   const textColorBid = useColorModeValue("brand.500", "white");
-  const { nom, vote, statut, image } = props;
+  // const textColorBid = useColorModeValue("brand.500", "white");
+  const bidders = [
+    Avatar1,
+    Avatar2,
+    Avatar3,
+    Avatar4,
+    Avatar1,
+    Avatar1,
+    Avatar1,
+    Avatar1,
+  ];
 
   return (
     <Card p="20px">
       <Flex direction={{ base: "column" }} justify="center">
         <Box mb={{ base: "20px", "2xl": "20px" }} position="relative">
           <Image
-            src={image}
+            src={couverture}
             w={{ base: "100%", "3xl": "100%" }}
             h={{ base: "100%", "3xl": "100%" }}
             borderRadius="20px"
@@ -83,7 +101,7 @@ export default function ProjectCard(props) {
                 fontWeight="bold"
                 me="14px"
               >
-                {nom}
+                {project.title}
               </Text>
               <Text
                 color="secondaryGray.600"
@@ -93,7 +111,7 @@ export default function ProjectCard(props) {
                 fontWeight="400"
                 me="14px"
               >
-                {statut}
+                {project.status}
               </Text>
             </Flex>
           </Flex>
@@ -109,9 +127,26 @@ export default function ProjectCard(props) {
             }}
             mt="25px"
           >
-            <Text fontWeight="700" fontSize="sm" color={textColorBid}>
-              Vote: {vote}
-            </Text>
+            <AvatarGroup
+              max={3}
+              color={textColorBid}
+              size="sm"
+              mt={{
+                base: "0px",
+                md: "10px",
+                lg: "0px",
+                xl: "10px",
+                "2xl": "0px",
+              }}
+              fontSize="12px"
+            >
+              {bidders.map((avt, key) => (
+                <Avatar key={key} src={avt} />
+              ))}
+            </AvatarGroup>
+            {/* <Text fontWeight="700" fontSize="sm" color={textColorBid}>
+              Vote: {project.vote}
+            </Text> */}
           </Flex>
         </Flex>
       </Flex>

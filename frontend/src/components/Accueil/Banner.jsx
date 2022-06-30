@@ -1,7 +1,11 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/prop-types */
 import React from "react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 
 // Chakra imports
-import { Button, Flex, Text } from "@chakra-ui/react";
 
 // Assets
 import banner from "./NftBanner1.png";
@@ -46,11 +50,28 @@ export default function Banner() {
           "3xl": "34%",
         }}
         fontWeight="500"
-        mb="40px"
+        mb="20px"
         lineHeight="28px"
       >
         Entrez dans l'univers créatif d'Apside, découvrez les projets menés par
         les équipes partout en France.
+      </Text>
+      <Text
+        fontSize="md"
+        color="#E3DAFF"
+        maxW={{
+          base: "100%",
+          md: "64%",
+          lg: "40%",
+          xl: "56%",
+          "2xl": "46%",
+          "3xl": "34%",
+        }}
+        fontWeight="500"
+        mb="20px"
+        lineHeight="28px"
+      >
+        Rechercher par :
       </Text>
       <Flex align="center">
         <Button

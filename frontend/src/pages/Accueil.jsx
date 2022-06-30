@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-props-no-spreading */
+import axios from "axios";
 import {
   Box,
   Grid,
@@ -8,22 +12,53 @@ import {
   Button,
   SimpleGrid,
   useDisclosure,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { SearchIcon } from "@chakra-ui/icons";
 import Banner from "../components/Accueil/Banner";
 import ProjectCard from "../components/Accueil/ProjectCard";
-import imageProjet from "../assets/Nft3.png";
 import Card from "../components/Accueil/Card";
 import Projects from "../components/Accueil/Projects";
 import Navbar from "../components/Accueil/Navbar/Navbar";
 import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 
 export default function Accueil(props) {
-  const { ...rest } = props;
+  const { variant, background, children, placeholder, borderRadius, ...rest } =
+    props;
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const textColorBrand = useColorModeValue("brand.500", "white");
   const { onOpen } = useDisclosure();
   const [fixed] = useState(false);
+  const [inputUser, setInputUser] = useState("");
+  // const [project, setProject] = useState({});
+  const [allProjects, setAllProjects] = useState([]);
+  // const [setTitle] = useState("");
+  // const [setDescription] = useState("");
+  // const [setDateCreated] = useState("");
+  // const [setCover] = useState("");
+  // const [setStatus] = useState([]);
+  // Chakra Color Mode
+  const searchIconColor = useColorModeValue("gray.700", "white");
+  const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
+  const inputText = useColorModeValue("gray.700", "gray.100");
+
+  const handleInput = (e) => {
+    const input = e.target.value.toLowerCase();
+    setInputUser(input);
+  };
+
+  useEffect(() => {
+    axios.get(`http://localhost:5001/api/projects`).then((response) => {
+      // setProject(response.data[0]);
+      setAllProjects(response.data);
+      // setStatus(response.data[0].status);
+    });
+  }, []);
+
   return (
     <Box h="100vh">
       <Navbar onOpen={onOpen} fixed={fixed} {...rest} />
@@ -90,60 +125,51 @@ export default function Accueil(props) {
                   >
                     Projets
                   </Text>
+                  <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
+                    <InputLeftElement
+                      children={
+                        <IconButton
+                          bg="inherit"
+                          borderRadius="inherit"
+                          _hover="none"
+                          _active={{
+                            bg: "inherit",
+                            transform: "none",
+                            borderColor: "transparent",
+                          }}
+                          _focus={{
+                            boxShadow: "none",
+                          }}
+                          icon={
+                            <SearchIcon
+                              color={searchIconColor}
+                              w="15px"
+                              h="15px"
+                            />
+                          }
+                        />
+                      }
+                    />
+                    <Input
+                      variant="search"
+                      fontSize="sm"
+                      bg={background ? background : inputBg}
+                      color={inputText}
+                      fontWeight="500"
+                      _placeholder={{ color: "gray.400", fontSize: "14px" }}
+                      borderRadius={borderRadius ? borderRadius : "30px"}
+                      placeholder={placeholder ? placeholder : "Search..."}
+                      onChange={handleInput}
+                      value={inputUser}
+                    />
+                  </InputGroup>
                 </Flex>
                 <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                </SimpleGrid>
-                <Text
-                  mt="45px"
-                  mb="36px"
-                  color={textColor}
-                  fontSize="2xl"
-                  ms="24px"
-                  fontWeight="700"
-                >
-                  Recently Added
-                </Text>
-                <SimpleGrid
-                  columns={{ base: 1, md: 3 }}
-                  gap="20px"
-                  mb={{ base: "20px", xl: "0px" }}
-                >
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
+                  {allProjects
+                    .filter((data) => data.title.includes(inputUser))
+                    .map((datas) => (
+                      <ProjectCard project={datas} />
+                    ))}
                 </SimpleGrid>
               </Flex>
             </Flex>

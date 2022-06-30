@@ -4,7 +4,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   Input,
@@ -18,10 +18,17 @@ export function SearchBar(props) {
   // Pass the computed styles into the `__css` prop
   const { variant, background, children, placeholder, borderRadius, ...rest } =
     props;
+  const [inputUser, setInputUser] = useState("");
   // Chakra Color Mode
   const searchIconColor = useColorModeValue("gray.700", "white");
   const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
   const inputText = useColorModeValue("gray.700", "gray.100");
+
+  const handleInput = (e) => {
+    const input = e.target.value.toLowerCase();
+    setInputUser(input);
+  };
+
   return (
     <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
       <InputLeftElement
@@ -51,6 +58,8 @@ export function SearchBar(props) {
         _placeholder={{ color: "gray.400", fontSize: "14px" }}
         borderRadius={borderRadius ? borderRadius : "30px"}
         placeholder={placeholder ? placeholder : "Search..."}
+        onChange={handleInput}
+        value={inputUser}
       />
     </InputGroup>
   );
