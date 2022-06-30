@@ -84,7 +84,7 @@ export default function Navbar(props) {
         mx="auto"
         mt={secondaryMargin}
         pb="8px"
-        right={{ base: "12px", md: "30px", lg: "30px", xl: "30px" }}
+        right={{ base: "2vw" }}
         px={{
           sm: paddingX,
           md: "10px",
@@ -94,13 +94,7 @@ export default function Navbar(props) {
         }}
         pt="8px"
         top={{ base: "12px", md: "16px", xl: "18px" }}
-        w={{
-          base: "calc(100vw - 6%)",
-          md: "calc(100vw - 8%)",
-          lg: "calc(100vw - 6%)",
-          xl: "calc(100vw - 350px)",
-          "2xl": "calc(100vw - 365px)",
-        }}
+        w="81vw"
         zIndex="10"
       >
         <Flex>
