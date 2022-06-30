@@ -7,7 +7,7 @@ export default function HeadProject() {
   const { userId, projectId } = useParams();
   const toast = useToast();
 
-  const [isCollaborator, setIsCollaborator] = useState(false);
+  const [isCollaborator, setIsCollaborator] = useState();
   const [projet, setProjet] = useState([]);
 
   const getProject = () => {
@@ -18,7 +18,26 @@ export default function HeadProject() {
       });
   };
 
-  useEffect(() => getProject(), []);
+  const getParticipation = () => {
+    axios
+      .get(
+        `http://localhost:5001/api/users/${userId}/projects/${projectId}/participations/`
+      )
+      .then((response) => {
+        if (response.data.length > 0) {
+          setIsCollaborator(true);
+        } else {
+          setIsCollaborator(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getParticipation();
+  }, [projectId]);
+  useEffect(() => {
+    getProject();
+  }, [projectId]);
 
   const rejoinProject = () => {
     axios
@@ -52,7 +71,7 @@ export default function HeadProject() {
         if (response) {
           toast({
             title: "Au revoir",
-            description: "Vous venez de quittez le projet !",
+            description: "Vous venez de quitter le projet !",
             status: "success",
             duration: 7000,
             position: "bottom-right",
@@ -73,7 +92,7 @@ export default function HeadProject() {
       >
         {projet.title}
       </Text>
-      {isCollaborator ? (
+      {!isCollaborator ? (
         <Button
           variant="darkBrand"
           alignSelf="center"
@@ -89,7 +108,7 @@ export default function HeadProject() {
           mr="2rem"
           onClick={leaveProject}
         >
-          Quittez le projet
+          Quitter le projet
         </Button>
       )}
     </Flex>

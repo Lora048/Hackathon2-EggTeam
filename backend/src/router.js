@@ -35,12 +35,10 @@ router.delete("/users/:id/projects/:id", ProjectController.deleteOne);
 
 // routes for votes
 router.get("/votes", VoteController.getAll);
-
 router.get(
   "/users/:userId/projects/:projectId/votes",
   VoteController.getOnebyUserAndProject
 );
-
 router.post(
   "/users/:userId/projects/:projectId/votes",
   VoteController.createOne
