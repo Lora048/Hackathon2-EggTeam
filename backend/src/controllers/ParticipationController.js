@@ -37,7 +37,6 @@ const getOnebyUserAndProject = async (req, res) => {
 const createOne = async (req, res) => {
   const userId = parseInt(req.params.userId, 10);
   const projectId = parseInt(req.params.projectId, 10);
-
   const existingUser = await user.getOne(userId);
   if (!existingUser) {
     return res.status(404).send("L'utilisateur n'existe pas");
@@ -99,4 +98,48 @@ const deleteOne = async (req, res) => {
   }
 };
 
-module.exports = { createOne, getAll, deleteOne, getOnebyUserAndProject };
+const createOneParticipator = async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10);
+  const userId = parseInt(req.params.userId, 10);
+  const existingUser = await user.getOne(userId);
+  if (!existingUser) {
+    return res.status(404).send("L'utilisateur n'existe pas");
+  }
+
+  const existingParticipation = await participation.getOnebyUserAndProject(
+    userId,
+    projectId
+  );
+
+  if (existingParticipation.length > 0) {
+    return res.status(409).json({
+      Erreur: "impossible de participer une deuxième fois à ce projet",
+    });
+  }
+
+  const existingProject = await project.getOne(projectId);
+  if (!existingProject) {
+    return res
+      .status(404)
+      .send("Vous ne pouvez pas participer à un projet qui n'existe pas");
+  }
+
+  try {
+    const participationCreated = await participation.createOne({
+      userId,
+      projectId,
+    });
+    return res.status(201).json({ participationCreated });
+  } catch (e) {
+    console.warn(e);
+    return res.sendStatus(500);
+  }
+};
+
+module.exports = {
+  createOne,
+  getAll,
+  deleteOne,
+  getOnebyUserAndProject,
+  createOneParticipator,
+};

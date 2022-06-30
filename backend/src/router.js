@@ -106,6 +106,7 @@ router.get(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.getOnebyUserAndProject
 );
+// automatiquement à la création du projet
 router.post(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.createOne
@@ -113,6 +114,18 @@ router.post(
 router.delete(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.deleteOne
+);
+
+// Affiche tout les participants d'un projet
+router.get(
+  "/projects/:projectId/participations/",
+  ParticipationController.getAll
+);
+
+// Ajoute 1 participant (userId) au projet
+router.post(
+  "/projects/:projectId/users/:userId/participations",
+  ParticipationController.createOneParticipator
 );
 
 // routes for tasks

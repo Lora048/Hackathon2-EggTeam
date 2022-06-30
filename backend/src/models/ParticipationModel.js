@@ -21,6 +21,8 @@ const getAll = async () => {
             firstname: true,
             lastname: true,
             picture: true,
+            jobPost: true,
+            agency: true,
           },
         },
       },
@@ -50,4 +52,20 @@ const deleteOne = async (id) => {
   }
 };
 
-module.exports = { createOne, getAll, deleteOne, getOnebyUserAndProject };
+const createOneParticipator = async (participation) => {
+  try {
+    return await prisma.participation_user_project.create({
+      data: { ...participation },
+    });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+module.exports = {
+  createOne,
+  getAll,
+  deleteOne,
+  getOnebyUserAndProject,
+  createOneParticipator,
+};
