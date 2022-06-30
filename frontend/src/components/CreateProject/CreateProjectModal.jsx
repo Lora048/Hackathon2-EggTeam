@@ -98,7 +98,7 @@ export default function CreateProjectModal({ isOpen, onClose, user }) {
           <FormControl isRequired>
             <Box>
               <Flex>
-                <Container maxW="50%">
+                <Container>
                   {cover ? (
                     <Box
                       h="250px"
