@@ -3,7 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 // import { buttonStyles } from "./components/button";
 // import { badgeStyles } from "./components/badge";
 // import { inputStyles } from "./components/input";
-// import { progressStyles } from "./components/progress";
+import { progressStyles } from "./components/progress";
 // import { sliderStyles } from "./components/slider";
 // import { textareaStyles } from "./components/textarea";
 // import { switchStyles } from "./components/switch";
@@ -13,11 +13,11 @@ import { globalStyles } from "./style";
 
 export default extendTheme(
   { breakpoints }, // Breakpoints
-  globalStyles
+  globalStyles,
   //   badgeStyles, // badge styles
   //   buttonStyles, // button styles
   //   linkStyles, // link styles
-  //   progressStyles, // progress styles
+  progressStyles // progress styles
   //   sliderStyles, // slider styles
   //   inputStyles, // input styles
   //   textareaStyles, // textarea styles

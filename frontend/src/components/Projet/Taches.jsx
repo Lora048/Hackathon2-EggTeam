@@ -6,7 +6,7 @@ export default function Description() {
     <Flex>
       <Flex p="2rem" flexDir="column" w="100%" gap="4">
         <Text fontSize="2xl" align="left">
-          Backlog du projet
+          Figma du projet
         </Text>
         <ReactTinyLink
           align="center"

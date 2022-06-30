@@ -9,14 +9,7 @@ import Documents from "./Documents";
 
 export default function ButtonGroupProjetNavigation() {
   return (
-    <Tabs
-      variant="solid-rounded"
-      colorScheme="brandScheme"
-      isFitted
-      w="100%"
-      m="0 auto"
-      marginTop="1rem"
-    >
+    <Tabs variant="solid-rounded" isFitted w="100%" m="0 auto" marginTop="1rem">
       <TabList
         borderColor="#313D4D"
         variant="solid-rounded"
@@ -25,22 +18,65 @@ export default function ButtonGroupProjetNavigation() {
           borderColor: "teal",
         }}
       >
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+          isFitted
+        >
           Description
         </Tab>
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+        >
           Tâches
         </Tab>
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+        >
           Contributeurs
         </Tab>
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+        >
           Planning
         </Tab>
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+        >
           Commentaires
         </Tab>
-        <Tab fontSize={{ base: "sm", sm: "md", md: "xl" }} borderRadius="2xl">
+        <Tab
+          fontSize={{ base: "sm", sm: "md", md: "xl" }}
+          borderRadius="2xl"
+          _selected={{
+            color: "white",
+            bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
+          }}
+        >
           Documents
         </Tab>
       </TabList>

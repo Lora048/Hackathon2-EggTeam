@@ -9,7 +9,9 @@ export default function Projet() {
         NAVBAR
       </Box>
       <Flex p="2rem" flexDir="column" w="80%" gap="4" h="100vh">
-        <Heading align="left">TITRE PROJET</Heading>
+        <Heading align="left" color="navy.700">
+          TITRE PROJET
+        </Heading>
         <Flex
           w="100%"
           p="20px"

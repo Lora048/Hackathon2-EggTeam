@@ -77,7 +77,6 @@ export default function Contributeurs() {
             <Td>
               <Box>
                 <Progress
-                  borderRadius="20px"
                   variant="table"
                   colorScheme="brandScheme"
                   value={80}
@@ -107,7 +106,6 @@ export default function Contributeurs() {
             <Td>
               <Box>
                 <Progress
-                  borderRadius="20px"
                   variant="table"
                   colorScheme="brandScheme"
                   value={50}
@@ -137,7 +135,6 @@ export default function Contributeurs() {
             <Td>
               <Box>
                 <Progress
-                  borderRadius="20px"
                   variant="table"
                   colorScheme="brandScheme"
                   value={20}
@@ -167,7 +164,6 @@ export default function Contributeurs() {
             <Td>
               <Box>
                 <Progress
-                  borderRadius="20px"
                   variant="table"
                   colorScheme="brandScheme"
                   value={70}
