@@ -20,7 +20,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 export default function Contributeurs() {
-  const modalTask = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Flex p="2rem" flexDir="column" w="100%" gap="4">
@@ -40,9 +40,7 @@ export default function Contributeurs() {
             color: "white",
             bgGradient: "linear-gradient(135deg, #868CFF 0%, #4318FF 100%)",
           }}
-          onClick={() => {
-            modalTask.onOpen();
-          }}
+          onClick={onOpen}
         >
           <AddIcon pr={2} />
           Planifier une tâche
@@ -50,14 +48,15 @@ export default function Contributeurs() {
         <Modal
           motionPreset="slideInBottom"
           isCentered
-          isOpen={modalTask.isOpen}
-          onClose={modalTask.onClose}
+          onOpen={onOpen}
+          isOpen={isOpen}
+          onClose={onClose}
           size="4xl"
         >
           <ModalOverlay backdropFilter="blur(10px)" />
           <ModalContent>
             <ModalBody textAlign="center">
-              <FormTask />
+              <FormTask onClose={onClose} isOpen={isOpen} />
             </ModalBody>
           </ModalContent>
         </Modal>

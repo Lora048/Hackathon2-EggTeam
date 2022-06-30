@@ -11,6 +11,7 @@ import {
   CloseButton,
   Textarea,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 
@@ -20,7 +21,9 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function FormTask() {
+// eslint-disable-next-line react/prop-types
+function FormTask({ onClose }) {
+  const toast = useToast();
   const { userId, projectId } = useParams();
 
   const [title, setTitle] = useState("");
@@ -49,19 +52,39 @@ function FormTask() {
 
   const postTask = (e) => {
     e.preventDefault();
-    axios.post(
-      `http://localhost:5001/api/users/${userId}/projects/${projectId}/tasks`,
-      {
-        userId: parseInt(userId, 10),
-        projectId: parseInt(projectId, 10),
-        title,
-        description,
-        status,
-        startDate,
-        dueDate,
-      }
-    );
-    //   .then((response) => console.log(response));
+    axios
+      .post(
+        `http://localhost:5001/api/users/${userId}/projects/${projectId}/tasks`,
+        {
+          userId: parseInt(userId, 10),
+          projectId: parseInt(projectId, 10),
+          title,
+          description,
+          status,
+          startDate,
+          dueDate,
+        }
+      )
+      .then((res) => {
+        console.warn(res);
+        toast({
+          title: "Votre projet a bien été ajouté",
+          status: "success",
+          position: "bottom-right",
+          duration: 7000,
+          isClosable: true,
+        });
+      })
+      .catch(() =>
+        toast({
+          title: "Votre projet n'a pas pû être ajouté",
+          status: "error",
+          position: "bottom-right",
+          duration: 7000,
+          isClosable: true,
+        })
+      );
+    onClose();
   };
 
   return (
