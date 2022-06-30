@@ -19,7 +19,7 @@ router.put("/users/:id", UserController.editOne);
 router.delete("/users/:id", UserController.deleteOne);
 
 router.get("/users/:id/projects", ProjectController.getAll);
-router.get("/users/:id/projects/:id", ProjectController.getOne);
+router.get("/users/:userid/projects/:id", ProjectController.getOne);
 // routes for projects
 router.get("/projects/participations", ParticipationController.getAll);
 router.get("/projects", ProjectController.getAll);
@@ -106,6 +106,7 @@ router.get(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.getOnebyUserAndProject
 );
+// automatiquement à la création du projet
 router.post(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.createOne
@@ -113,6 +114,12 @@ router.post(
 router.delete(
   "/users/:userId/projects/:projectId/participations/",
   ParticipationController.deleteOne
+);
+
+// Affiche tout les participants d'un projet
+router.get(
+  "/projects/:projectId/participations/",
+  ParticipationController.getAllForAProject
 );
 
 // routes for tasks
