@@ -13,6 +13,10 @@ import { breakpoints } from "./breakpoints";
 import globalStyles from "./styles";
 
 export default extendTheme(
+  {
+    fonts: { heading: `Poppins, sans-serif`, body: `Poppins, sans-serif` },
+  },
+
   { breakpoints }, // Breakpoints
   globalStyles,
   //   badgeStyles, // badge styles
