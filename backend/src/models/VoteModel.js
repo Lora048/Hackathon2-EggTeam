@@ -27,7 +27,7 @@ const getAll = async () => {
 
 const getOnebyUserAndProject = async (userId, projectId) => {
   try {
-    return await prisma.vote.findMany({
+    return await prisma.vote.findUnique({
       where: { userId, projectId },
     });
   } finally {
