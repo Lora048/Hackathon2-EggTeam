@@ -39,7 +39,22 @@ const getAllProjectsForOneUser = async (userId) => {
 
 const getOne = async (id) => {
   try {
-    return await prisma.project.findUnique({ where: { id: parseInt(id, 10) } });
+    return await prisma.project.findUnique({
+      where: { id: parseInt(id, 10) },
+      include: {
+        fk_project_userId: {
+          select: {
+            firstname: true,
+            lastname: true,
+            picture: true,
+          },
+        },
+        votes: true,
+        participation_user_project: {
+          include: { fk_participation_user_project_userId: true },
+        },
+      },
+    });
   } finally {
     await prisma.$disconnect();
   }
