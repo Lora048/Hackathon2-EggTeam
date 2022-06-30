@@ -51,7 +51,14 @@ export function LiensSidebar({ projects, user }) {
     {
       name: "Mon profil",
       layout: "/admin",
-      path: "/",
+      path: "/profil",
+      icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
+      secondary: true,
+    },
+    {
+      name: "Projet",
+      layout: "/admin",
+      path: "/projet",
       icon: <Icon as={MdPerson} width="20px" height="20px" color="inherit" />,
       secondary: true,
     },

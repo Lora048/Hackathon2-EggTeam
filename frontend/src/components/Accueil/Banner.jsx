@@ -1,7 +1,11 @@
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react/prop-types */
 import React from "react";
+import { Flex, Text } from "@chakra-ui/react";
 
 // Chakra imports
-import { Button, Flex, Text } from "@chakra-ui/react";
 
 // Assets
 import banner from "./NftBanner1.png";
@@ -32,7 +36,7 @@ export default function Banner() {
         fontWeight="700"
         lineHeight={{ base: "32px", md: "42px" }}
       >
-        Discover, collect, and sell extraordinary NFTs
+        Découvrez, créez, innovez !
       </Text>
       <Text
         fontSize="md"
@@ -46,32 +50,12 @@ export default function Banner() {
           "3xl": "34%",
         }}
         fontWeight="500"
-        mb="40px"
+        mb="20px"
         lineHeight="28px"
       >
-        Enter in this creative world. Discover now the latest NFTs or start
-        creating your own!
+        Entrez dans l'univers créatif d'Apside, découvrez les projets menés par
+        les équipes partout en France.
       </Text>
-      <Flex align="center">
-        <Button
-          bg="white"
-          color="black"
-          _hover={{ bg: "whiteAlpha.900" }}
-          _active={{ bg: "white" }}
-          _focus={{ bg: "white" }}
-          fontWeight="500"
-          fontSize="14px"
-          py="20px"
-          px="27"
-          me="38px"
-        >
-          Discover now
-        </Button>
-
-        <Text color="white" fontSize="sm" fontWeight="500">
-          Watch video
-        </Text>
-      </Flex>
     </Flex>
   );
 }

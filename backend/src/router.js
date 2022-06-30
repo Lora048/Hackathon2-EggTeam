@@ -24,6 +24,8 @@ router.get(
   ProjectController.getAllProjectsForOneUser
 );
 router.get("/users/:id/projects/:id", ProjectController.getOne);
+router.get("/users/:id/projects", ProjectController.getAll);
+router.get("/users/:userid/projects/:id", ProjectController.getOne);
 // routes for projects
 router.get("/projects/participations", ParticipationController.getAll);
 router.get("/projects/:id", ProjectController.getOne);

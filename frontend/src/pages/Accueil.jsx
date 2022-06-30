@@ -1,4 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unneeded-ternary */
+/* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-props-no-spreading */
+import axios from "axios";
 import {
   Box,
   Grid,
@@ -8,12 +12,18 @@ import {
   Button,
   SimpleGrid,
   useDisclosure,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Select,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+import { SearchIcon } from "@chakra-ui/icons";
 import Banner from "../components/Accueil/Banner";
 import ProjectCard from "../components/Accueil/ProjectCard";
-import imageProjet from "../assets/Nft3.png";
 import Card from "../components/Accueil/Card";
 import Projects from "../components/Accueil/Projects";
 import Navbar from "../components/Accueil/Navbar/Navbar";
@@ -22,11 +32,55 @@ import Sidebar from "../components/Accueil/Sidebar/Sidebar";
 export default function Accueil(props) {
   const { userId } = useParams();
 
-  const { ...rest } = props;
+  const { variant, background, children, placeholder, borderRadius, ...rest } =
+    props;
+
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const textColorBrand = useColorModeValue("brand.500", "white");
   const { onOpen } = useDisclosure();
   const [fixed] = useState(false);
+  const [inputUser, setInputUser] = useState("");
+  // const [project, setProject] = useState({});
+  const [allProjects, setAllProjects] = useState([]);
+  const [choosenValue, setChoosenValue] = useState("");
+
+  // Chakra Color Mode
+  const searchIconColor = useColorModeValue("gray.700", "white");
+  const inputBg = useColorModeValue("secondaryGray.300", "navy.900");
+  const inputText = useColorModeValue("gray.700", "gray.100");
+
+  const projectListFilteredByAgency = () => {
+    return allProjects.filter((project) =>
+      project.fk_project_userId.agency.includes(choosenValue)
+    );
+  };
+
+  // const projectListFilteredBySkills = () => {
+  //   return allProjects.filter((project) =>
+  //     project.fk_project_userId.hardSkills.includes(choosenValue)
+  //   );
+  // };
+
+  const handleChange = (e) => {
+    setChoosenValue(e.target.value);
+  };
+
+  const handleInput = (e) => {
+    const input = e.target.value;
+    setInputUser(input);
+  };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5001/api/projects`)
+      .then((response) => {
+        setAllProjects(response.data);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  }, []);
+
   return (
     <Box h="100vh">
       <Navbar onOpen={onOpen} fixed={fixed} {...rest} user={userId} />
@@ -54,7 +108,7 @@ export default function Accueil(props) {
               <Card px="0px">
                 <Projects />
               </Card>
-              <Card p="0px">
+              <Card p="0px" mt="20px">
                 <Flex
                   align={{ sm: "flex-start", lg: "center" }}
                   justify="space-between"
@@ -65,14 +119,14 @@ export default function Accueil(props) {
                   <Text color={textColor} fontSize="xl" fontWeight="600">
                     Projets chez Apside
                   </Text>
-                  <Button variant="action">See all</Button>
+                  <Button variant="action">Voir tout</Button>
                 </Flex>
               </Card>
             </Flex>
             <Flex
               flexDirection="column"
               gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
-              mt="5%"
+              mt="3.5%"
               mr="2vw"
               w="59vw"
             >
@@ -93,60 +147,103 @@ export default function Accueil(props) {
                   >
                     Projets
                   </Text>
+
+                  <Flex align="center">
+                    <Button
+                      variant="lightBrand"
+                      fontWeight="500"
+                      fontSize="14px"
+                      py="20px"
+                      px="27"
+                      me="38px"
+                    >
+                      Meilleurs votes
+                    </Button>
+                    <Select
+                      placeholder="Agence"
+                      variant="filled"
+                      width="25%"
+                      value={choosenValue}
+                      onChange={handleChange}
+                      marginRight="35px"
+                    >
+                      <option value="Paris">Paris</option>
+                      <option value="Marseille">Marseille</option>
+                      <option value="Bordeaux">Bordeaux</option>
+                      <option value="Toulouse">Toulouse</option>
+                      <option value="Bayonne">Bayonne</option>
+                    </Select>
+
+                    <Select
+                      placeholder="Compétence"
+                      variant="filled"
+                      width="25%"
+                      value={choosenValue}
+                      onChange={handleChange}
+                      marginRight="35px"
+                    >
+                      <option value="Javascript">Javascript</option>
+                      <option value="Ecologie">Ecologie</option>
+                      <option value="Ressources humaines">
+                        Ressources humaines
+                      </option>
+                      <option value="Intelligence collective">
+                        Intelligence collective
+                      </option>
+                      <option value="Cohésion">Cohésion</option>
+                    </Select>
+                    <InputGroup w={{ base: "100%", md: "200px" }} {...rest}>
+                      <InputLeftElement
+                        children={
+                          <IconButton
+                            bg="inherit"
+                            borderRadius="inherit"
+                            _hover="none"
+                            _active={{
+                              bg: "inherit",
+                              transform: "none",
+                              borderColor: "transparent",
+                            }}
+                            _focus={{
+                              boxShadow: "none",
+                            }}
+                            icon={
+                              <SearchIcon
+                                color={searchIconColor}
+                                w="15px"
+                                h="15px"
+                              />
+                            }
+                          />
+                        }
+                      />
+                      <Input
+                        variant="search"
+                        fontSize="sm"
+                        bg={background ? background : inputBg}
+                        color={inputText}
+                        fontWeight="500"
+                        _placeholder={{ color: "gray.400", fontSize: "14px" }}
+                        borderRadius={borderRadius ? borderRadius : "30px"}
+                        placeholder="Rechercher..."
+                        onChange={handleInput}
+                        value={inputUser}
+                      />
+                    </InputGroup>
+                  </Flex>
                 </Flex>
                 <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                </SimpleGrid>
-                <Text
-                  mt="45px"
-                  mb="36px"
-                  color={textColor}
-                  fontSize="2xl"
-                  ms="24px"
-                  fontWeight="700"
-                >
-                  Recently Added
-                </Text>
-                <SimpleGrid
-                  columns={{ base: 1, md: 3 }}
-                  gap="20px"
-                  mb={{ base: "20px", xl: "0px" }}
-                >
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
-                  <ProjectCard
-                    nom="mobilité douce"
-                    vote="150"
-                    statut="en cours"
-                    image={imageProjet}
-                  />
+                  {allProjects
+                    .filter((data) => data.title.includes(inputUser))
+
+                    .map((datas) => <ProjectCard project={datas} />) &&
+                    projectListFilteredByAgency().map((project) => (
+                      <ProjectCard project={project} />
+                    ))}
+                  {/*  &&
+                    projectListFilteredBySkills().map((project) => (
+                   <ProjectCard project={project} />
+                   ))} */}
                 </SimpleGrid>
               </Flex>
             </Flex>
