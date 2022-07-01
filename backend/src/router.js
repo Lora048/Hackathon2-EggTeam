@@ -77,7 +77,7 @@ router.put(
   CommentController.editOne
 );
 router.delete(
-  "/users/:userId/projects/:projectId/comments/:id",
+  "/users/:userId/projects/:projectId/comments/:commentsId",
   CommentController.deleteOne
 );
 
