@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/html-has-lang */
 /* eslint-disable react/prop-types */
@@ -9,7 +10,12 @@ import {
   Avatar,
   Tag,
   Divider,
+  Button,
+  useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
+// import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // import Tiptap from "./Tiptap";
 import "./description.css";
 // eslint-disable-next-line react/prop-types
@@ -17,6 +23,48 @@ export default function Description({ project }) {
   if (!project) {
     return null;
   }
+  const { userId, projectId, id } = useParams();
+  const toast = useToast();
+  // const [voteByUserAndProject, setVoteByUserAndProject] = useState([]);
+
+  const handleRating = () => {
+    axios
+      .post(
+        `http://localhost:5001/api/users/${userId}/projects/${projectId}/votes`,
+        {
+          type: "positif",
+        }
+      )
+      .then(() => {
+        toast({
+          title: "Votre vote a été pris en compte",
+          status: "success",
+          position: "bottom-right",
+          duration: 7000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handleUnrating = () => {
+    axios.post(`http://localhost:5001/api/vote/${id}`).then(() => {
+      toast({
+        title: "Votre vote a été supprimé",
+        status: "failure",
+        position: "bottom-right",
+        duration: 7000,
+        isClosable: true,
+      });
+    });
+  };
+
+  // console.log(project)
+
+  // useEffect(() => {
+  //   handleRating();
+  // }, []);
+
+  // console.log(project.votes.length);
   return (
     <Flex flexDir="column">
       <Flex p="2rem" py="1rem" flexDir="column" w="100%">
@@ -86,6 +134,36 @@ export default function Description({ project }) {
               {project.status}
             </Tag>
           </Flex>
+          <Flex direction="column" align="center" justify="center">
+            <Text
+              fontSize="lg"
+              align="left"
+              color="brand.500"
+              fontWeight="700"
+              mb="10px"
+            >
+              Votes
+            </Text>
+
+            <Text
+              fontSize="lg"
+              align="left"
+              color="brand.500"
+              fontWeight="500"
+              mb="10px"
+            >
+              {project.votes.length}
+            </Text>
+          </Flex>
+          {!project.type ? (
+            <Button onClick={handleRating} variant="lightBrand">
+              Voter
+            </Button>
+          ) : (
+            <Button onClick={handleUnrating} variant="lightBrand">
+              Supprimer mon vote
+            </Button>
+          )}
         </Flex>
       </Flex>
     </Flex>
