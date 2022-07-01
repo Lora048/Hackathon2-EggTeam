@@ -1,0 +1,15 @@
+.textDescription h1 {
+    font-size:32px;
+    font-weight:700;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+}
+
+.textDescription{
+    text-align: left;
+}
+.textDescription h2 {
+    font-size:26px
+}
+.textDescription li {
+margin-left: 36px}

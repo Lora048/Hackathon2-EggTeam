@@ -1,7 +1,7 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import Description from "./Description";
-import Taches from "./Taches";
+import Taches from "./Outils";
 import Contributeurs from "./Contributeurs";
 import Planning from "./Planning/Planning";
 import Commentaires from "./Commentaires";
@@ -84,7 +84,7 @@ export default function ButtonGroupProjetNavigation({ project }) {
 
       <TabPanels>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
-          <Description />
+          <Description project={project} />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           <Taches />

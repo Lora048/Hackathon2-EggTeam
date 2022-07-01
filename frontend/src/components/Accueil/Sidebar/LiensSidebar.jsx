@@ -159,6 +159,8 @@ export function LiensSidebar({ projects, user }) {
                   />
                   <Text
                     me="auto"
+                    textAlign="left"
+                    noOfLines={1}
                     fontSize="sm"
                     color={inactiveColor}
                     fontWeight={"normal"}
