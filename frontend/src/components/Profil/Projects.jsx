@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import {
   Flex,
   Text,
@@ -11,7 +12,6 @@ import { AddIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import imageProjet from "../../assets/Nft3.png";
 import CreateProjectModal from "../CreateProject/CreateProjectModal";
 
 export default function Projects() {
@@ -55,7 +55,7 @@ export default function Projects() {
             <Image
               h="80px"
               w="80px"
-              src={imageProjet}
+              src={projet.cover}
               borderRadius="8px"
               me="20px"
             />
@@ -68,9 +68,7 @@ export default function Projects() {
               >
                 {projet.title}
               </Text>
-              <Text fontWeight="500" color="gray.400" fontSize="sm" me="4px">
-                {projet.description}
-              </Text>
+
               <Link
                 fontWeight="500"
                 color="brand.500"
