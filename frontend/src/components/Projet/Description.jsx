@@ -61,8 +61,10 @@ export default function Description({ project }) {
   // console.log(project)
 
   // useEffect(() => {
-  //   getVotes();
+  //   handleRating();
   // }, []);
+
+  // console.log(project.votes.length);
   return (
     <Flex flexDir="column">
       <Flex p="2rem" py="1rem" flexDir="column" w="100%">
@@ -142,6 +144,26 @@ export default function Description({ project }) {
                 Supprimer mon vote
               </Button>
             )}
+            <Flex width="4.5rem" justify="space-between" align="center">
+              <Text
+                fontSize="3xl"
+                align="left"
+                color="brand.500"
+                fontWeight="700"
+                mb="10px"
+              >
+                {project.votes.length}
+              </Text>
+              <Text
+                fontSize="lg"
+                align="left"
+                color="brand.500"
+                fontWeight="400"
+                mb="10px"
+              >
+                votes
+              </Text>
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
