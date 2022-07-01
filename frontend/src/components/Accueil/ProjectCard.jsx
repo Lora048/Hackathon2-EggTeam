@@ -43,17 +43,6 @@ export default function ProjectCard({ project }) {
     Github: "blue.200",
     Javascript: "brand.300",
     NodeJS: "navy.500",
-    Java: "gray.300",
-    Express: "gray.500",
-    Docker: "brand.600",
-    Figma: "blue.200",
-    React: "brand.400",
-    PHP: "blue.400",
-    flutter: "navy.200",
-    Dart: "navy.500",
-    "C++": "purple.400",
-    "React Native": "purple.600",
-    "Suite Adobe": "purple.800",
   };
   const bidders = [
     Avatar1,
