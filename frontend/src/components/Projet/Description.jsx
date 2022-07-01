@@ -98,7 +98,7 @@ export default function Description({ project }) {
         </Flex>
         <Divider my="30px" />
 
-        <Flex gap="100px">
+        <Flex gap="100px" alignItems="top">
           <Flex direction="column">
             <Text
               fontSize="lg"
@@ -135,35 +135,37 @@ export default function Description({ project }) {
             </Tag>
           </Flex>
           <Flex direction="column" align="center" justify="center">
-            <Text
-              fontSize="lg"
-              align="left"
-              color="brand.500"
-              fontWeight="700"
-              mb="10px"
-            >
-              Votes
-            </Text>
+            <Flex direction="column" align="center" justify="center">
+              <Text
+                fontSize="lg"
+                align="left"
+                color="brand.500"
+                fontWeight="700"
+                mb="10px"
+              >
+                Votes
+              </Text>
 
-            <Text
-              fontSize="lg"
-              align="left"
-              color="brand.500"
-              fontWeight="500"
-              mb="10px"
-            >
-              {project.votes.length}
-            </Text>
+              <Text
+                fontSize="lg"
+                align="left"
+                color="brand.500"
+                fontWeight="500"
+                mb="10px"
+              >
+                {project.votes.length}
+              </Text>
+            </Flex>
+            {!project.type ? (
+              <Button onClick={handleRating} variant="lightBrand">
+                Voter
+              </Button>
+            ) : (
+              <Button onClick={handleUnrating} variant="lightBrand">
+                Supprimer mon vote
+              </Button>
+            )}
           </Flex>
-          {!project.type ? (
-            <Button onClick={handleRating} variant="lightBrand">
-              Voter
-            </Button>
-          ) : (
-            <Button onClick={handleUnrating} variant="lightBrand">
-              Supprimer mon vote
-            </Button>
-          )}
         </Flex>
       </Flex>
     </Flex>

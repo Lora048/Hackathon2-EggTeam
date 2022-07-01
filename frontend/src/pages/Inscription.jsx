@@ -195,7 +195,7 @@ function Inscription() {
               w="100%"
               h="50"
               mb="24px"
-              onClick={() => navigate("../accueil/1")}
+              onClick={() => navigate("../accueil/3")}
             >
               Sign In
             </Button>
