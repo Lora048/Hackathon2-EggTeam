@@ -49,6 +49,7 @@ const getOne = async (id) => {
             picture: true,
           },
         },
+        task: true,
         votes: true,
         participation_user_project: {
           include: { fk_participation_user_project_userId: true },

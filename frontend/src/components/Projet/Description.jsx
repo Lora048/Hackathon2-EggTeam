@@ -39,7 +39,7 @@ export default function Description({ project }) {
             </Text>
             <Avatar
               name={`${project.fk_project_userId.firstname} ${project.fk_project_userId.lastname} `}
-            />{" "}
+            />
           </Flex>
         </Flex>
         <Flex w="100%" my="1rem" flexDir="column" gap="4" text-align="left">
