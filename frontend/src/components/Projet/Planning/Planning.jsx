@@ -9,15 +9,14 @@ import {
   ModalOverlay,
   ModalContent,
   ModalBody,
+  useColorModeValue,
+  Grid,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-// import { useState, useEffect } from "react";
-
-// import axios from "axios";
-// import Card from "../../Accueil/Card";
+import Card from "../../Accueil/Card";
 import events from "./events";
 import FormTask from "./FormTask";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -31,7 +30,10 @@ export default function Planning({ project }) {
   }
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // const [taskList, setTaskList] = useState([]);
+  const cardShadow = useColorModeValue(
+    "0px 18px 40px rgba(112, 144, 176, 0.12)",
+    "unset"
+  );
 
   return (
     <Flex p="2rem" flexDir="column" w="100%" gap="4">
@@ -88,11 +90,36 @@ export default function Planning({ project }) {
           })}
         />
       </Box>
-      {project.task.map((task) => (
-        <Box>
-          <Text>{task.title}</Text>
-        </Box>
-      ))}
+      <Grid templateColumns="repeat(2, 1fr)" gap={6} direction="column">
+        {project.task.map((task) => (
+          <Card boxShadow={cardShadow}>
+            <Text
+              fontSize={{
+                base: "xl",
+                md: "lg",
+                lg: "lg",
+                xl: "lg",
+                "2xl": "md",
+                "3xl": "lg",
+              }}
+              mb="5px"
+              fontWeight="bold"
+              textAlign="center"
+              color="brand.600"
+            >
+              {task.title}
+            </Text>
+            <Text fontWeight="semibold">Description :</Text>
+            <Text mb="5px">{task.description}</Text>
+            <Text fontWeight="semibold">Statut :</Text>
+            <Text mb="5px">{task.status}</Text>
+            <Text fontWeight="semibold">Date de lancement :</Text>
+            <Text mb="5px">{task.startDate}</Text>
+            <Text fontWeight="semibold">Date prévisionnelle de fin :</Text>
+            <Text>{task.dueDate}</Text>
+          </Card>
+        ))}
+      </Grid>
     </Flex>
   );
 }
