@@ -134,7 +134,7 @@ export default function GeneralInfos() {
               fontWeight="500"
               fontSize="md"
             >
-              Design
+              Innovation
             </Text>
           </Flex>
           <Flex

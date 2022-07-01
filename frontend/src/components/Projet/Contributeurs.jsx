@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Avatar,
   Flex,
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+// eslint-disable-next-line react/prop-types
 export default function Contributeurs() {
   const [contributors, setContributors] = useState();
 
@@ -80,20 +82,17 @@ export default function Contributeurs() {
                     w="fit-content"
                     alignItems="center"
                   >
-                    {parseInt(userId, 10) === contributor.userId ? (
-                      <StarIcon w={7} h={7} color="navy.700" mr="0.5rem" />
-                    ) : (
-                      <StarIcon w={7} h={7} color="white" mr="0.5rem" />
-                    )}
                     <Avatar
-                      src={
-                        contributor.fk_participation_user_project_userId.picture
+                      name={
+                        contributor.fk_participation_user_project_userId
+                          .firstname
                       }
                       w="45px"
                       h="45px"
                       me="8px"
                     />
-                    <Flex gap="2" alignItems="center">
+
+                    <Flex gap="2" alignItems="center" mr="15px">
                       <Text fontSize="md" fontWeight="600">
                         {
                           contributor.fk_participation_user_project_userId
@@ -107,6 +106,11 @@ export default function Contributeurs() {
                         }
                       </Text>
                     </Flex>
+                    {parseInt(userId, 10) === contributor.userId ? (
+                      <StarIcon w={4} h={4} color="orange.400" mr="0.5rem" />
+                    ) : (
+                      <StarIcon w={4} h={4} color="white" mr="0.5rem" />
+                    )}
                   </Flex>
                 </Td>
                 <Td>

@@ -17,7 +17,7 @@ export default function Banner() {
 
   useEffect(() => getUser(), []);
   return (
-    <Flex flexDirection="column" w="100%">
+    <Flex flexDirection="column" w="95%" m="auto">
       <Flex
         p="20px"
         flexDirection="column"
