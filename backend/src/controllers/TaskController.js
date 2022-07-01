@@ -37,15 +37,8 @@ const getAll = async (req, res) => {
     if (taskList.length === 0) {
       return res.status(404).send("Aucune tâches trouvé");
     }
-    const newTaskList = taskList.map((u) => ({
-      id: u.id,
-      title: u.title,
-      description: u.description,
-      status: u.status,
-      startDate: u.startDate,
-      dueDate: u.dueDate,
-    }));
-    return res.status(200).json(newTaskList);
+
+    return res.status(200).json(taskList);
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);
