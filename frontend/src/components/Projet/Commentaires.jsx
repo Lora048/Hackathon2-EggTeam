@@ -5,6 +5,7 @@ import {
   Button,
   FormControl,
   Input,
+  Avatar,
   Spacer,
   useToast,
 } from "@chakra-ui/react";
@@ -57,26 +58,6 @@ export default function Commentaires() {
     );
   };
 
-  // const addReply = () => {
-  //   axios
-  //     .post(
-  //       `http://localhost:5001/api/users/${userId}/projects/${projectId}/comments/${commentsId}/reply`,
-  //       { content }
-  //     )
-  //     .then((response) => {
-  //       if (response) {
-  //         toast({
-  //           title: "Réponse postée !",
-  //           status: "success",
-  //           duration: 7000,
-  //           position: "bottom-right",
-  //           isClosable: true,
-  //         });
-  //       }
-  //     });
-  //   setOpenAddReply(!openAddReply);
-  // };
-
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.500";
 
@@ -121,82 +102,94 @@ export default function Commentaires() {
           </FormControl>
         )}
         {comments &&
-          comments
-            // .filter(
-            //   (comment) => comment.fk_comments_userId.projectId === projectId
-            // )
-            .map((comment) => (
-              <Flex>
+          comments.map((comment) => (
+            <Flex gap="50px">
+              <Card
+                key={comment.content}
+                display="flex"
+                direction="row"
+                mb="5rem"
+                color={textColorSecondary}
+                bg="white"
+                boxShadow={cardShadow}
+                w="50%"
+              >
+                {" "}
+                <Flex color="gray.700" mb="0.5rem" alignItems="center">
+                  <Avatar
+                    name={comment.fk_comments_userId.firstname}
+                    w="45px"
+                    h="45px"
+                    me="8px"
+                  />
+                  {comment.fk_comments_userId.firstname}{" "}
+                  {comment.fk_comments_userId.lastname}
+                </Flex>
+                <Flex>{comment.content}</Flex>
+                <Flex direction="end" alignItems="end">
+                  <Spacer /> <DeleteIcon mr="0.5rem" onClick={deleteComment} />{" "}
+                  <EditIcon onClick={() => setOpenAddReply(!openAddReply)} />
+                </Flex>
+              </Card>
+              {openAddReply && (
                 <Card
-                  key={comment.content}
-                  display="flex"
-                  direction="row"
-                  mb="5rem"
-                  color={textColorSecondary}
-                  bg="RGBA(0, 0, 0, 0.04)"
                   boxShadow={cardShadow}
+                  bg="blue.50"
+                  alignItems="end"
+                  mt="5rem"
                   w="50%"
                 >
-                  {" "}
-                  <Flex color="gray.700" mb="0.5rem">
-                    {comment.fk_comments_userId.picture}
-                    {comment.fk_comments_userId.firstname}{" "}
-                    {comment.fk_comments_userId.lastname}
-                  </Flex>
-                  <Flex>{comment.content}</Flex>
-                  <Flex direction="end" alignItems="end">
-                    <Spacer />{" "}
-                    <DeleteIcon mr="0.5rem" onClick={deleteComment} />{" "}
-                    <EditIcon onClick={() => setOpenAddReply(!openAddReply)} />
-                  </Flex>
+                  <FormControl paddingTop="14rem" w="50%">
+                    <Input
+                      id="content"
+                      placeholder="Ajoute un commentaire"
+                      onChange={(e) => setContent(e.target.value)}
+                    />
+                    <Button
+                      color="white"
+                      bgGradient="linear-gradient(135deg, #868CFF 0%, #4318FF 100%)"
+                      w="30%"
+                      type="button"
+                      onClick={addComment}
+                    >
+                      Envoyer un commentaire
+                    </Button>
+                  </FormControl>{" "}
                 </Card>
-                {openAddReply && (
-                  <Card
-                    boxShadow={cardShadow}
-                    bg="blue.50"
-                    alignItems="end"
-                    mt="5rem"
-                    w="50%"
-                  >
-                    <FormControl paddingTop="14rem" w="50%">
-                      <Input
-                        id="content"
-                        placeholder="Ajoute un commentaire"
-                        onChange={(e) => setContent(e.target.value)}
-                      />
-                      <Button
-                        color="white"
-                        bgGradient="linear-gradient(135deg, #868CFF 0%, #4318FF 100%)"
-                        w="30%"
-                        type="button"
-                        onClick={addComment}
-                      >
-                        Envoyer un commentaire
-                      </Button>
-                    </FormControl>{" "}
-                  </Card>
-                )}
+              )}
+              <Flex direction="column" w="50%" gap="20px" mt="30px">
                 {comment.comments_reply &&
                   comment.comments_reply.map((rep) => (
-                    <Flex key={rep.id} w="50%">
+                    <Flex key={rep.id}>
                       <Card
                         boxShadow={cardShadow}
                         bg="blue.50"
                         alignItems="end"
-                        mt="5rem"
                       >
-                        <Flex color={textColorSecondary} mb="0.5rem">
-                          Marcel Durand
-                        </Flex>
-                        <Flex>{rep.content}</Flex>
-                        <Flex>
-                          <DeleteIcon mr="0.5rem" />
+                        <Flex
+                          color={textColorSecondary}
+                          mb="0.5rem"
+                          alignItems="center"
+                          gap="10px"
+                        >
+                          <Avatar
+                            name={rep.fk_comments_reply_userId.firstname}
+                            w="45px"
+                            h="45px"
+                            me="8px"
+                          />
+                          <Text>{`${rep.fk_comments_reply_userId.firstname} ${rep.fk_comments_reply_userId.firstname}`}</Text>
+                          <Flex>{rep.content}</Flex>
+                          <Flex>
+                            <DeleteIcon mr="0.5rem" />
+                          </Flex>
                         </Flex>
                       </Card>
                     </Flex>
                   ))}
               </Flex>
-            ))}
+            </Flex>
+          ))}
       </Flex>
     </Flex>
   );
