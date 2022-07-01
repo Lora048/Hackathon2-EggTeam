@@ -93,7 +93,7 @@ export default function ButtonGroupProjetNavigation({ project }) {
           <Contributeurs project={project} />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
-          <Planning />
+          <Planning project={project} />
         </TabPanel>
         <TabPanel mt={{ base: "0.5rem", sm: "1rem", md: "2rem" }} p="0">
           <Commentaires />
