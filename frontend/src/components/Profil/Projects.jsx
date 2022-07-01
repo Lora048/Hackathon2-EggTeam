@@ -1,10 +1,21 @@
-import { Flex, Text, Image, Box, Link } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Image,
+  Box,
+  Link,
+  useDisclosure,
+  Button,
+} from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import imageProjet from "../../assets/Nft3.png";
+import CreateProjectModal from "../CreateProject/CreateProjectModal";
 
 export default function Projects() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [projets, setProjets] = useState([]);
 
   const { userId } = useParams();
@@ -29,13 +40,13 @@ export default function Projects() {
         minW="0px"
         bg="#ffffff"
         backgroundClip="border-box"
+        gap="4"
       >
         <Text
           color="secondaryGray.900"
           fontWeight="bold"
           fontSize="2xl"
           mt="10px"
-          mb="20px"
         >
           Etat des projets
         </Text>
@@ -71,6 +82,22 @@ export default function Projects() {
             </Box>
           </Flex>
         ))}
+        <Button
+          alignSelf="center"
+          w="40%"
+          variant="brand"
+          leftIcon={<AddIcon />}
+          size="md"
+          onClick={onOpen}
+        >
+          Créer un projet
+        </Button>
+        <CreateProjectModal
+          onOpen={onOpen}
+          isOpen={isOpen}
+          onClose={onClose}
+          user={userId}
+        />
       </Flex>
     </Flex>
   );
