@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Flex,
   Box,
@@ -13,14 +14,24 @@ import { AddIcon } from "@chakra-ui/icons";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import FormTask from "./FormTask";
+// import { useState, useEffect } from "react";
+
+// import axios from "axios";
+// import Card from "../../Accueil/Card";
 import events from "./events";
+import FormTask from "./FormTask";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
-export default function Contributeurs() {
+// eslint-disable-next-line react/prop-types
+export default function Planning({ project }) {
+  if (!project) {
+    return null;
+  }
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // const [taskList, setTaskList] = useState([]);
 
   return (
     <Flex p="2rem" flexDir="column" w="100%" gap="4">
@@ -61,7 +72,6 @@ export default function Contributeurs() {
           </ModalContent>
         </Modal>
       </Flex>
-
       <Box style={{ height: 500 }} m="1rem">
         <Calendar
           defaultView="month"
@@ -78,6 +88,11 @@ export default function Contributeurs() {
           })}
         />
       </Box>
+      {project.task.map((task) => (
+        <Box>
+          <Text>{task.title}</Text>
+        </Box>
+      ))}
     </Flex>
   );
 }
