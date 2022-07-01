@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable react/no-danger */
 /* eslint-disable jsx-a11y/html-has-lang */
 /* eslint-disable react/prop-types */
@@ -9,7 +10,12 @@ import {
   Avatar,
   Tag,
   Divider,
+  Button,
+  useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
+// import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 // import Tiptap from "./Tiptap";
 import "./description.css";
 // eslint-disable-next-line react/prop-types
@@ -17,6 +23,46 @@ export default function Description({ project }) {
   if (!project) {
     return null;
   }
+  const { userId, projectId, id } = useParams();
+  const toast = useToast();
+  // const [voteByUserAndProject, setVoteByUserAndProject] = useState([]);
+
+  const handleRating = () => {
+    axios
+      .post(
+        `http://localhost:5001/api/users/${userId}/projects/${projectId}/votes`,
+        {
+          type: "positif",
+        }
+      )
+      .then(() => {
+        toast({
+          title: "Votre vote a été pris en compte",
+          status: "success",
+          position: "bottom-right",
+          duration: 7000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const handleUnrating = () => {
+    axios.post(`http://localhost:5001/api/vote/${id}`).then(() => {
+      toast({
+        title: "Votre vote a été supprimé",
+        status: "failure",
+        position: "bottom-right",
+        duration: 7000,
+        isClosable: true,
+      });
+    });
+  };
+
+  // console.log(project)
+
+  // useEffect(() => {
+  //   getVotes();
+  // }, []);
   return (
     <Flex flexDir="column">
       <Flex p="2rem" py="1rem" flexDir="column" w="100%">
@@ -85,6 +131,17 @@ export default function Description({ project }) {
             <Tag bgColor="pink.500" color="white">
               {project.status}
             </Tag>
+          </Flex>
+          <Flex direction="column">
+            {!project.type ? (
+              <Button onClick={handleRating} variant="lightBrand">
+                Voter
+              </Button>
+            ) : (
+              <Button onClick={handleUnrating} variant="lightBrand">
+                Supprimer mon vote
+              </Button>
+            )}
           </Flex>
         </Flex>
       </Flex>

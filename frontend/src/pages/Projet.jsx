@@ -22,7 +22,7 @@ export default function Projet() {
 
   useEffect(() => {
     getProject();
-  }, [projectId, projet]);
+  }, [projectId]);
 
   return (
     <Flex>
