@@ -18,6 +18,7 @@ const getAll = async () => {
       include: {
         fk_comments_userId: true,
         fk_comments_projectId: true,
+        comments_reply: true,
       },
     });
   } finally {

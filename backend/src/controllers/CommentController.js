@@ -30,11 +30,7 @@ const getAll = async (req, res) => {
     if (commentList.length === 0) {
       return res.status(404).send("Aucun commentaires trouvé");
     }
-    const newCommentList = commentList.map((u) => ({
-      id: u.id,
-      content: u.content,
-    }));
-    return res.status(200).json(newCommentList);
+    return res.status(200).json(commentList);
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);

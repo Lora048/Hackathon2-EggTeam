@@ -30,11 +30,7 @@ const getAll = async (req, res) => {
     if (replyList.length === 0) {
       return res.status(404).send("Aucune réponses trouvé");
     }
-    const newReplyList = replyList.map((u) => ({
-      id: u.id,
-      content: u.content,
-    }));
-    return res.status(200).json(newReplyList);
+    return res.status(200).json(replyList);
   } catch (e) {
     console.warn(e);
     return res.sendStatus(500);
