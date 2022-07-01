@@ -25,8 +25,11 @@ const createOne = async (req, res) => {
 };
 
 const getAll = async (req, res) => {
+  const { projectId } = req.params;
+  const { userId } = req.params;
+
   try {
-    const commentList = await comments.getAll();
+    const commentList = await comments.getAll(projectId, userId);
     if (commentList.length === 0) {
       return res.status(404).send("Aucun commentaires trouvé");
     }
