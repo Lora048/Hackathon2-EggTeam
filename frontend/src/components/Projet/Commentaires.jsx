@@ -178,7 +178,7 @@ export default function Commentaires() {
                             h="45px"
                             me="8px"
                           />
-                          <Text>{`${rep.fk_comments_reply_userId.firstname} ${rep.fk_comments_reply_userId.firstname}`}</Text>
+                          <Text>{`${rep.fk_comments_reply_userId.firstname} ${rep.fk_comments_reply_userId.lastname}`}</Text>
                           <Flex>{rep.content}</Flex>
                           <Flex>
                             <DeleteIcon mr="0.5rem" />

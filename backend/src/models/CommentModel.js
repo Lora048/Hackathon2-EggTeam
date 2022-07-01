@@ -12,9 +12,13 @@ const createOne = async (content) => {
   }
 };
 
-const getAll = async () => {
+const getAll = async (projectId, userId) => {
   try {
     return await prisma.comments.findMany({
+      where: {
+        projectId: parseInt(projectId, 10),
+        userId: parseInt(userId, 10),
+      },
       include: {
         fk_comments_userId: true,
         fk_comments_projectId: true,

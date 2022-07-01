@@ -65,22 +65,24 @@ export default function Documents() {
                     mb="auto"
                   >
                     <Flex direction="column" alignItems="center">
-                      <Text
-                        fontSize={{
-                          base: "xl",
-                          md: "lg",
-                          lg: "lg",
-                          xl: "lg",
-                          "2xl": "md",
-                          "3xl": "lg",
-                        }}
-                        mb="5px"
-                        fontWeight="bold"
-                        textAlign="center"
-                        noOfLines={1}
-                      >
-                        {doc.name}
-                      </Text>
+                      <a href={doc.url} target="blank">
+                        <Text
+                          fontSize={{
+                            base: "xl",
+                            md: "lg",
+                            lg: "lg",
+                            xl: "lg",
+                            "2xl": "md",
+                            "3xl": "lg",
+                          }}
+                          mb="5px"
+                          fontWeight="bold"
+                          textAlign="center"
+                          noOfLines={1}
+                        >
+                          {doc.name}
+                        </Text>
+                      </a>
                     </Flex>
                   </Flex>
 

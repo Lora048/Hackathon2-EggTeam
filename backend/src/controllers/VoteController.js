@@ -84,10 +84,7 @@ const editOne = async (req, res) => {
 
 const deleteOne = async (req, res) => {
   const { id } = req.params;
-  const voteCheck = await vote.getOne(id);
-  if (!voteCheck) {
-    return res.status(404).json({ Erreur: "Aucun vote trouvé" });
-  }
+
   try {
     await vote.deleteOne(id);
     return res.status(200).json({ Succès: `Vote supprimé avec succès ` });
