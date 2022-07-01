@@ -46,6 +46,7 @@ export default function Accueil(props) {
   const [allProjects, setAllProjects] = useState([]);
   const [choosenValueAgency, setChoosenValueAgency] = useState("");
   const [choosenValueSkills, setChoosenValueSkills] = useState("");
+  // const [projectId, setProjectId] = useState([]);
 
   // Chakra Color Mode
   const searchIconColor = useColorModeValue("gray.700", "white");
@@ -74,6 +75,16 @@ export default function Accueil(props) {
         console.warn(error);
       });
   }, []);
+
+  // const getprojectid = () => {
+  //   axios
+  //     .get(`http://localhost:5001/api/projects`)
+  //     .then((res) => set(res.data.id));
+  // };
+
+  // useEffect(() => {
+  //   getprojectid();
+  // }, []);
 
   return (
     <Box h="100vh">
@@ -268,7 +279,14 @@ export default function Accueil(props) {
                         );
                     })
                     .map((project) => (
-                      <ProjectCard project={project} />
+                      <a
+                        href={`http://localhost:3001/accueil/${parseInt(
+                          userId,
+                          10
+                        )}/projet/${project.id}`}
+                      >
+                        <ProjectCard project={project} />
+                      </a>
                     ))}
                 </SimpleGrid>
               </Flex>

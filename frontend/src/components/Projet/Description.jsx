@@ -134,37 +134,36 @@ export default function Description({ project }) {
               {project.status}
             </Tag>
           </Flex>
-          <Flex direction="column">
-            {!project.type ? (
-              <Button onClick={handleRating} variant="lightBrand">
-                Voter
-              </Button>
-            ) : (
-              <Button onClick={handleUnrating} variant="lightBrand">
-                Supprimer mon vote
-              </Button>
-            )}
-            <Flex width="4.5rem" justify="space-between" align="center">
-              <Text
-                fontSize="3xl"
-                align="left"
-                color="brand.500"
-                fontWeight="700"
-                mb="10px"
-              >
-                {project.votes.length}
-              </Text>
-              <Text
-                fontSize="lg"
-                align="left"
-                color="brand.500"
-                fontWeight="400"
-                mb="10px"
-              >
-                votes
-              </Text>
-            </Flex>
+          <Flex direction="column" align="center" justify="center">
+            <Text
+              fontSize="lg"
+              align="left"
+              color="brand.500"
+              fontWeight="700"
+              mb="10px"
+            >
+              Votes
+            </Text>
+
+            <Text
+              fontSize="lg"
+              align="left"
+              color="brand.500"
+              fontWeight="500"
+              mb="10px"
+            >
+              {project.votes.length}
+            </Text>
           </Flex>
+          {!project.type ? (
+            <Button onClick={handleRating} variant="lightBrand">
+              Voter
+            </Button>
+          ) : (
+            <Button onClick={handleUnrating} variant="lightBrand">
+              Supprimer mon vote
+            </Button>
+          )}
         </Flex>
       </Flex>
     </Flex>
